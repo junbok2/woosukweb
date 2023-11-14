@@ -1,0 +1,166 @@
+<!--청년제도-->
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>우석대학교 일자리 플러스센터</title>
+        <link rel="stylesheet" href="{% static 'css/basic_style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/youthpolicy_style.css' %}">
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    </head>
+    <body id="container">
+        <header>
+            <div>
+                <div class="links">
+                {% if user.is_authenticated %}
+        <a>안녕하세요, {{ user.name }}님! </a>
+        <a href="{% url 'logout' %}">로그아웃</a>
+    {% else %}
+        <a href="{% url 'login' %}">로그인</a>
+        <a href="{% url 'join' %}">회원가입</a>
+    {% endif %}
+                </div>
+            </div>
+            <a href="{% url 'index' %}">
+                <div id="logo">
+                    <img src="{% static 'img/logo1.jpg' %}" width="60px">
+                        <div id="logo_text">
+                        <img src="{% static 'img/logo2.jpg' %}" width="150px">
+                        일자리 플러스센터
+                    </div>
+                </div>
+            </a>
+             <nav>
+                <ul><a href="{% url 'noticeboard' %}">공지사항</a></ul>
+                <ul><a href="{% url 'recruitment' %}">채용정보</a></ul>
+                <ul><a href="{% url 'job' %}">직업정보</a></ul>
+                <ul><a href="{% url 'youthpolicy' %}">청년제도</a></ul>
+                <ul><a href="{% url 'education' %}">교육프로그램</a></ul>
+                <ul><a href="{% url 'post_list' %}">게시판</a></ul>
+             </nav>
+        </header>
+        <main>
+            <hr>
+            <h1>청년제도</h1>
+            <div id="search_tab">
+                <label>키워드 검색</label>
+                <input type="text" name="input_search" id="input_search">
+                <button id="search_btn" type="button">검 색</button>
+            </div>
+
+            <div id="policy_container">
+                <div>
+                <ui id="policy"></ui>
+                </div>
+                <div id="authorship"><p>❮출처:온통청년❯</p></div>
+            </div>
+            <div id="pagebutton">
+                <ul><button id="pagebutton_previous">&#10094;이전</button></ul>
+                <ul><a id="pagebutton_this"></a></ul>
+                <ul><button id="pagebutton_next">다음&#10095;</button></ul>
+            </div>
+
+
+            <hr>
+        </main>
+        <footer>
+            <div>
+                <p>우석대학교 일자리 플러스센터</p>
+                <p>캡스톤 디자인 나으리 조</p>
+            </div>
+            <div id="footer_links" >
+                <a href="https://data.seoul.go.kr/">
+                    <img src="https://data.seoul.go.kr/resources/img/common/logo.png" alt="서울 열린데이터광장">
+                    <a href="https://www.career.go.kr/cnet/front/main/main.do"><img src="https://www.career.go.kr/webres/images/common/logo.png" alt="커리어넷"></a>
+                    <a href="https://www.youthcenter.go.kr/main.do"><img src="https://www.youthcenter.go.kr/images/common/logo.png" alt="온라인 청년센터"></a>
+
+                </a>
+            </div>
+        </footer>
+        <aside>
+            <a class="top" href="#"><img src="{% static 'img/top.png' %}"></a>
+        </aside>
+
+    <script>
+var pageIndex = 1;
+var totalpage;
+$(document).ready(function() {
+            search_ajax();
+
+});
+$("#input_search").on('keydown',function(event) {
+        if (event.keyCode === 13) {
+            search_ajax();
+        }
+});
+$("#search_btn").click(function() {
+       pageIndex = 1;
+       search_ajax();
+});
+function search_ajax() {
+    $.ajax({
+                    url:'{% url 'youthpolicy_search' %}',
+                    dataType:'json',
+                    type:'POST',
+                    data:{'pageIndex':pageIndex, 'search_value':$("#input_search").val()},
+                    headers: { "X-CSRFToken": '{{csrf_token}}' },
+                    success:function(json){
+                        datalist(json.value.youthPolicy);
+                        pageIndex = json.pageIndex;
+                        pagingbutton(json.value.totalCnt, json.value.youthPolicy.length);
+                        console.log(json);
+                    },
+                    error : function(result){
+                        alert('정보를 불러오지 못했습니다');
+                    }
+            });
+}
+function datalist(value) {
+    var policy = document.getElementById("policy");
+    policy.innerHTML = ''
+    for (var i = 0; i < value.length; i++ ) {
+    policy.innerHTML +=
+    '<a href=' + "youthpolicy_detail/" + pageIndex + '&' + value[i].bizId + '>' +
+    '<li>' +
+    '<h3>' + value[i].polyBizSjnm + '</h3>' +
+    '<div class="policy_container_info">' +
+    '<div>연령제한  ('+ value[i].ageInfo +')</div>' +
+    '<div>운영기관명  ('+ value[i].cnsgNmor +')</div>' +
+    '</div>' +
+    '</li>' +
+    '</a>';
+    }
+}
+function pagingbutton(count, pagesize) {
+    totalpage = (count / pagesize);
+    var pagebutton_previous = document.getElementById("pagebutton_previous");
+    var pagebutton_this = document.getElementById("pagebutton_this");
+    var pagebutton_next = document.getElementById("pagebutton_next");
+    pagebutton_previous.style.display = "none";
+    pagebutton_next.style.display = "none";
+    if (pageIndex > 1) {
+        pagebutton_previous.style.display = "block";
+    }
+    pagebutton_this.innerHTML = pageIndex;
+    if (pageIndex < totalpage){
+        pagebutton_next.style.display = "block";
+    }
+}
+$("#pagebutton_next").click(function() {
+    if (pageIndex < totalpage) {
+        pageIndex++;
+        search_ajax();
+    }
+
+});
+$("#pagebutton_previous").click(function() {
+    if (pageIndex > 1) {
+        pageIndex--;
+        search_ajax();
+    }
+
+});
+        </script>
+    </body>
+</html>

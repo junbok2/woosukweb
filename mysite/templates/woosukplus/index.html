@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>우석대학교 일자리 플러스센터</title>
+    <link rel="stylesheet" href="{% static 'css/basic_style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index_style.css' %}">
+</head>
+<body id="container">
+<header>
+            <div>
+                <div class="links">
+                {% if user.is_authenticated %}
+        <a>안녕하세요, {{ user.name }}님! </a>
+        <a href="{% url 'logout' %}">로그아웃</a>
+    {% else %}
+        <a href="{% url 'login' %}">로그인</a>
+        <a href="{% url 'join' %}">회원가입</a>
+    {% endif %}
+                </div>
+            </div>
+            <a href="{% url 'index' %}">
+                <div id="logo">
+                    <img src="{% static 'img/logo1.jpg' %}" width="60px">
+                        <div id="logo_text">
+                        <img src="{% static 'img/logo2.jpg' %}" width="150px">
+                        일자리 플러스센터
+                    </div>
+                </div>
+            </a>
+             <nav>
+                <ul><a href="{% url 'noticeboard' %}">공지사항</a></ul>
+                <ul><a href="{% url 'recruitment' %}">채용정보</a></ul>
+                <ul><a href="{% url 'job' %}">직업정보</a></ul>
+                <ul><a href="{% url 'youthpolicy' %}">청년제도</a></ul>
+                <ul><a href="{% url 'education' %}">교육프로그램</a></ul>
+                <ul><a href="{% url 'post_list' %}">게시판</a></ul>
+             </nav>
+        </header>
+<main>
+    <hr>
+    <h1>테스트</h1>
+    <div id="screen_full">
+                <div id="screen_top">
+
+                    <div class="slider">
+                    <img src="{% static 'img/woo.png' %}" class="slide-image">
+                        <img src="{% static 'img/slide02.PNG' %}" class="slide-image">
+                        <img src="{% static 'img/slide03.PNG' %}" class="slide-image">
+                    </div>
+
+                </div>
+
+                <div id="screen_bottom">
+
+                    <div id="screen_left">
+                        <div class="announcement">
+                        <div class="left-text">
+                            <a>공지사항</a>
+                        </div>
+                    <div class="right-button">
+                        <a href="{% url 'noticeboard' %}">
+                        <img src="{% static 'img/plus.png' %}" alt="공지사항"></a>
+                    </div>
+                </div>
+
+                <div class="announcement-link">
+                    <a href="{% url 'noticeboard' %}">test</a>
+                </div>
+            </div>
+
+
+                    <div id="screen_right">
+                        <div class="tab_content_noticeboard">
+                            <input type="radio" name="tabmenu" id="tab01" checked>
+                            <label for="tab01">채용정보</label>
+                            <input type="radio" name="tabmenu" id="tab02">
+                            <label for="tab02">직업정보</label>
+                            <input type="radio" name="tabmenu" id="tab03">
+                            <label for="tab03">청년정책</label>
+
+                            <div class="conbox_noticeboard con1">내용 01</div>
+                            <div class="conbox_noticeboard con2">내용 02</div>
+                            <div class="conbox_noticeboard con3">내용 03</div>
+                        </div>
+                    </div>
+                </div>
+</div>
+
+    <hr>
+</main>
+<footer>
+            <div>
+                <p>우석대학교 일자리 플러스센터</p>
+                <p>캡스톤 디자인 나으리 조</p>
+            </div>
+            <div id="footer_links" >
+                <a href="https://data.seoul.go.kr/">
+                    <img src="https://data.seoul.go.kr/resources/img/common/logo.png" alt="서울 열린데이터광장">
+                    <a href="https://www.career.go.kr/cnet/front/main/main.do"><img src="https://www.career.go.kr/webres/images/common/logo.png" alt="커리어넷"></a>
+                    <a href="https://www.youthcenter.go.kr/main.do"><img src="https://www.youthcenter.go.kr/images/common/logo.png" alt="온라인 청년센터"></a>
+
+                </a>
+            </div>
+        </footer>
+<aside>
+    <a class="top" href="#"><img src="{% static 'img/top.png' %}"></a>
+</aside>
+</body>
+</html>

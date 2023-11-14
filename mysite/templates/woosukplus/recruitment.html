@@ -1,0 +1,106 @@
+<!--채용정보-->
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>우석대학교 일자리 플러스센터</title>
+        <link rel="stylesheet" href="{% static 'css/basic_style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/recruitment_style.css' %}">
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    </head>
+    <body id="container">
+        <header>
+            <div>
+                <div class="links">
+                {% if user.is_authenticated %}
+        <a>안녕하세요, {{ user.name }}님! </a>
+        <a href="{% url 'logout' %}">로그아웃</a>
+    {% else %}
+        <a href="{% url 'login' %}">로그인</a>
+        <a href="{% url 'join' %}">회원가입</a>
+    {% endif %}
+                </div>
+            </div>
+            <a href="{% url 'index' %}">
+                <div id="logo">
+                    <img src="{% static 'img/logo1.jpg' %}" width="60px">
+                        <div id="logo_text">
+                        <img src="{% static 'img/logo2.jpg' %}" width="150px">
+                        일자리 플러스센터
+                    </div>
+                </div>
+            </a>
+             <nav>
+                <ul><a href="{% url 'noticeboard' %}">공지사항</a></ul>
+                <ul><a href="{% url 'recruitment' %}">채용정보</a></ul>
+                <ul><a href="{% url 'job' %}">직업정보</a></ul>
+                <ul><a href="{% url 'youthpolicy' %}">청년제도</a></ul>
+                <ul><a href="{% url 'education' %}">교육프로그램</a></ul>
+                <ul><a href="{% url 'post_list' %}">게시판</a></ul>
+             </nav>
+        </header>
+        <main>
+            <hr>
+            <h1>채용정보</h1>
+            <div id="table_teb">
+            <table>
+                <a name="anchor"></a>
+                <th>기업명</th>
+                <th>구인제목</th>
+			    <th>업무</th>
+                <th>모집요강</th>
+			    <th>마감일</th>
+                {%for i in page_obj %}
+                <tr>
+                    <td>{{i.1}}</td>
+                    <td><a href="{% url 'recruitment_detail' boardid=i.0 %}" class="table_links">{{i.2}}</a></td>
+                    {% if i.3 == None %}
+				    <td>-</td>
+                    {% else %}
+                    <td>{{i.3}}</td>
+                    {%endif%}
+                    <td>{{i.4}}</td>
+                    <td>{{i.5}}</td>
+			    </tr>
+                {%endfor%}
+
+		    </table>
+                <div id="authorship">&#10094;출처:서울열린데이터광장&#10095;</div>
+            </div>
+            <div id="pagebutton">
+                {% if page_obj.has_previous %}
+                <ul><a href="?page={{page_obj.previous_page_number}}#anchor">&#10094;이전</a></ul>
+                {% endif %}
+                {% for page in custom_range %}
+                {% if page == page_obj.number %}
+                <ul><a id="pagebutton_color" href="?page={{page}}#anchor">{{page}}</a> </ul>
+                {% else %}
+                <ul><a href="?page={{page}}#anchor">{{page}}</a> </ul>
+                {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                <ul ><a href="?page={{page_obj.next_page_number}}#anchor">다음&#10095;</a></ul>
+                {% endif %}
+            </div>
+            <hr>
+        </main>
+        <footer>
+            <div>
+                <p>우석대학교 일자리 플러스센터</p>
+                <p>캡스톤 디자인 나으리 조</p>
+            </div>
+            <div id="footer_links" >
+                <a href="https://data.seoul.go.kr/">
+                    <img src="https://data.seoul.go.kr/resources/img/common/logo.png" alt="서울 열린데이터광장">
+                    <a href="https://www.career.go.kr/cnet/front/main/main.do"><img src="https://www.career.go.kr/webres/images/common/logo.png" alt="커리어넷"></a>
+                    <a href="https://www.youthcenter.go.kr/main.do"><img src="https://www.youthcenter.go.kr/images/common/logo.png" alt="온라인 청년센터"></a>
+
+                </a>
+            </div>
+        </footer>
+        <aside>
+            <a class="top" href="#"><img src="{% static 'img/top.png' %}"></a>
+        </aside>
+    </body>
+</html>

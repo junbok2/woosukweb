@@ -1,0 +1,186 @@
+<!--직업정보-->
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>우석대학교 일자리 플러스센터</title>
+        <link rel="stylesheet" href="{% static 'css/basic_style.css' %}">
+		<link rel="stylesheet" href="{% static 'css/job_style.css' %}">
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    </head>
+    <body id="container">
+        <header>
+            <div>
+                <div class="links">
+                {% if user.is_authenticated %}
+        <a>안녕하세요, {{ user.name }}님! </a>
+        <a href="{% url 'logout' %}">로그아웃</a>
+    {% else %}
+        <a href="{% url 'login' %}">로그인</a>
+        <a href="{% url 'join' %}">회원가입</a>
+    {% endif %}
+                </div>
+            </div>
+           <a href="{% url 'index' %}">
+                <div id="logo">
+                    <img src="{% static 'img/logo1.jpg' %}" width="60px">
+                        <div id="logo_text">
+                        <img src="{% static 'img/logo2.jpg' %}" width="150px">
+                        일자리 플러스센터
+                    </div>
+                </div>
+            </a>
+             <nav>
+                <ul><a href="{% url 'noticeboard' %}">공지사항</a></ul>
+                <ul><a href="{% url 'recruitment' %}">채용정보</a></ul>
+                <ul><a href="{% url 'job' %}">직업정보</a></ul>
+                <ul><a href="{% url 'youthpolicy' %}">청년제도</a></ul>
+                <ul><a href="{% url 'education' %}">교육프로그램</a></ul>
+                <ul><a href="{% url 'post_list' %}">게시판</a></ul>
+             </nav>
+        </header>
+        <main>
+            <hr>
+            <h1>직업정보</h1>
+            <div id="search_tab">
+                <label>검색</label>
+                <select id="searchJobCd" name="searchJobCd">
+                  <option value="">전체</option>
+                  <option value="0">경영·사무·금융·보험직</option>
+                  <option value="1">연구직 및 공학 기술직</option>
+                  <option value="2">교육·법률·사회복지·경찰·소방직 및 군인</option>
+                  <option value="3">보건·의료직</option>
+                  <option value="4">예술·디자인·방송·스포츠직</option>
+                  <option value="5">미용·여행·숙박·음식·경비·청소직</option>
+                  <option value="6">영업·판매·운전·운송직</option>
+                  <option value="7">건설·채굴직</option>
+                  <option value="8">설치·정비·생산직</option>
+                  <option value="9">농림어업직</option>
+                </select>
+                <input type="text" name="input_search" id="input_search">
+                <button id="search_btn" type="button">검 색</button>
+            </div>
+            <div id="job_container">
+                <ui id="job_container_content"> </ui>
+            </div>
+            <div id="authorship"><p>❮출처:커리어넷❯</p></div></ui>
+            <div id="pagebutton">
+                <ul><button id="pagebutton_previous">&#10094;이전</button></ul>
+                <ul><a id="pagebutton_this"></a></ul>
+                <ul><button id="pagebutton_next">다음&#10095;</button></ul>
+            </div>
+            <hr>
+        </main>
+        <footer>
+            <div>
+                <p>우석대학교 일자리 플러스센터</p>
+                <p>캡스톤 디자인 나으리 조</p>
+            </div>
+            <div id="footer_links" >
+                <a href="https://data.seoul.go.kr/">
+                    <img src="https://data.seoul.go.kr/resources/img/common/logo.png" alt="서울 열린데이터광장">
+                    <a href="https://www.career.go.kr/cnet/front/main/main.do"><img src="https://www.career.go.kr/webres/images/common/logo.png" alt="커리어넷"></a>
+                    <a href="https://www.youthcenter.go.kr/main.do"><img src="https://www.youthcenter.go.kr/images/common/logo.png" alt="온라인 청년센터"></a>
+
+                </a>
+            </div>
+        </footer>
+        <aside>
+            <a class="top" href="#"><img src="{% static 'img/top.png' %}"></a>
+        </aside>
+        <script>
+var pageIndex = 1;
+var totalpage;
+$(document).ready(function() {
+            search_ajax();
+
+});
+$("#input_search").on('keydown',function(event) {
+        if (event.keyCode === 13) {
+            pageIndex = 1;
+            search_ajax();
+        }
+});
+$("#search_btn").click(function() {
+       pageIndex = 1;
+       search_ajax();
+});
+function search_ajax(){
+      $.ajax({
+                    url:'{% url 'job_search' %}',
+                    dataType:'json',
+                    type:'POST',
+                    data:{'pageIndex':pageIndex, 'search_value':$("#input_search").val(), 'searchJobCd':$("#searchJobCd").val()},
+                    headers: { "X-CSRFToken": '{{csrf_token}}' },
+                    success:function(json){
+                        datalist(json.value);
+                        pageIndex = json.pageIndex;
+                        pagingbutton(json.value.count, json.value.pageSize);
+                        console.log(json);
+                    },
+                    error : function(result){
+                        alert('정보를 불러오지 못했습니다');
+                    }
+            });
+}
+function datalist(value) {
+    var job_container_content = document.getElementById("job_container_content");
+    job_container_content.innerHTML = '';
+    for (var i = 0; i < value['jobs'].length; i++ ) {
+        job_container_content.innerHTML +=
+        '<li>' +
+        '<a href=' + "job_detail/" + pageIndex + '&' + value['jobs'][i].job_cd + '>' +
+        '<h3>' + value['jobs'][i].job_nm + '</h3>' +
+        '<div class="job_container_info">' +
+        '<div><p>연봉</p>' + wage_data(i) + '</div>' +
+        '<div><p>전망</p>' + wage_data(i) + '</div>'+
+        '</div></a></li>';
+    }
+    function wage_data(i) {
+        if(value['jobs'][i].wage == undefined) {
+            return '-';
+        } else {
+            return value['jobs'][i].wage;
+        }
+    }
+    function wage_data(i) {
+        if(value['jobs'][i].wage == undefined) {
+            return '-';
+        } else {
+            return value['jobs'][i].wage;
+        }
+    }
+}
+function pagingbutton(count, pagesize) {
+    totalpage = (count / pagesize);
+    var pagebutton_previous = document.getElementById("pagebutton_previous");
+    var pagebutton_this = document.getElementById("pagebutton_this");
+    var pagebutton_next = document.getElementById("pagebutton_next");
+    pagebutton_previous.style.display = "none";
+    pagebutton_next.style.display = "none";
+    if (pageIndex > 1) {
+        pagebutton_previous.style.display = "block";
+    }
+    pagebutton_this.innerHTML = pageIndex;
+    if (pageIndex < totalpage){
+        pagebutton_next.style.display = "block";
+    }
+}
+$("#pagebutton_next").click(function() {
+    if (pageIndex < totalpage) {
+        pageIndex++;
+        search_ajax();
+    }
+
+});
+$("#pagebutton_previous").click(function() {
+    if (pageIndex > 1) {
+        pageIndex--;
+        search_ajax();
+    }
+
+});
+        </script>
+    </body>
+</html>

@@ -1,0 +1,137 @@
+<!--채용정보상세-->
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>우석대학교 일자리 플러스센터</title>
+        <link rel="stylesheet" href="{% static 'css/basic_style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/recruitment_detail_style.css' %}">
+    </head>
+    <body id="container">
+        <header>
+            <div>
+                <div class="links">
+                {% if user.is_authenticated %}
+        <a>안녕하세요, {{ user.name }}님! </a>
+        <a href="{% url 'logout' %}">로그아웃</a>
+    {% else %}
+        <a href="{% url 'login' %}">로그인</a>
+        <a href="{% url 'join' %}">회원가입</a>
+    {% endif %}
+                </div>
+            </div>
+            <a href="{% url 'index' %}">
+                <div id="logo">
+                    <img src="{% static 'img/logo1.jpg' %}" width="60px">
+                        <div id="logo_text">
+                        <img src="{% static 'img/logo2.jpg' %}" width="150px">
+                        일자리 플러스센터
+                    </div>
+                </div>
+            </a>
+             <nav>
+                <ul><a href="{% url 'noticeboard' %}">공지사항</a></ul>
+                <ul><a href="{% url 'recruitment' %}">채용정보</a></ul>
+                <ul><a href="{% url 'job' %}">직업정보</a></ul>
+                <ul><a href="{% url 'youthpolicy' %}">청년제도</a></ul>
+                <ul><a href="{% url 'education' %}">교육프로그램</a></ul>
+                <ul><a href="{% url 'post_list' %}">게시판</a></ul>
+             </nav>
+        </header>
+        <main>
+			<hr>
+            <h1>채용정보</h1>
+			<div id="table_teb">
+            <table>
+		<colgroup>
+			<col style="width: 150px">
+			<col style="width: auto,">
+			<col style="width: 140px">
+			<col style="width: 20%">
+		</colgroup>
+		<tbody>
+			<tr>
+				<th scope="row">제목</th>
+				<td>{{board.JO_SJ}}</td>
+				<th scope="row">기업명</th>
+				<td>{{board.CMPNY_NM}}</td>
+			</tr>
+			<tr>
+				<th scope="row">모집인원</th>
+				<td colspan="3">{{board.RCRIT_NMPR_CO}}</td>
+			</tr>
+			<tr>
+				<th scope="row">조건</th>
+				<td colspan="3">학력: {{board.ACDMCR_NM}}/경력: {{board.CAREER_CND_NM}}</td>
+				</tr>
+			<tr>
+				<th scope="row">고용형태</th>
+				<td colspan="3">{{board.EMPLYM_STLE_CMMN_MM}}</td>
+			</tr>
+			<tr>
+				<th scope="row">근무시간</th>
+				<td colspan="3">{{board.WORK_TIME_NM}}</td>
+			</tr>
+			<tr>
+				<th scope="row">급여조건</th>
+				<td>{{board.HOPE_WAGE}}</td>
+                <th scope="row">퇴직금구분</th>
+                <td>{{board.RET_GRANTS_NM}}</td>
+			</tr>
+			<tr>
+				<th scope="row">가입보험</th>
+				<td colspan="3">{{board.JO_FEINSR_SBSCRB_NM}}</td>
+			</tr>
+			<tr>
+				<th scope="row">직무내용</th>
+				<td colspan="3">{{board.DTY_CN}}</td>
+			</tr>
+			<tr>
+				<th scope="row">접수방법</th>
+				<td>{{board.RCEPT_MTH_NM}}</td>
+                <th scope="row">제출서류</th>
+				<td>{{board.PRESENTN_PAPERS_NM}}</td>
+			</tr>
+            <tr>
+				<th scope="row">근무예정지 주소</th>
+				<td colspan="3">{{board.WORK_PARAR_BASS_ADRES_CN}}</td>
+			</tr>
+            <tr>
+				<th scope="row">등록일</th>
+				<td>{{board.JO_REG_DT}}</td>
+                <th scope="row">마감일</th>
+				<td>{{board.RCEPT_CLOS_NM}}</td>
+			</tr>
+            <tr>
+				<th scope="row">담당 상담사</th>
+				<td>({{board.MNGR_INSTT_NM}}) {{board.MNGR_NM}}</td>
+                <th scope="row">상담사 전화번호</th>
+				<td>{{board.MNGR_PHON_NO}}</td>
+			</tr>
+			</tbody>
+				<div id="authorship">&#10094;출처:서울열린데이터광장&#10095;</div>
+			</table>
+			</div>
+			<button onclick="history.back();">돌아가기</button>
+			<hr>
+        </main>
+        <footer>
+            <div>
+                <p>우석대학교 일자리 플러스센터</p>
+                <p>캡스톤 디자인 나으리 조</p>
+            </div>
+            <div id="footer_links" >
+                <a href="https://data.seoul.go.kr/">
+                    <img src="https://data.seoul.go.kr/resources/img/common/logo.png" alt="서울 열린데이터광장">
+                    <a href="https://www.career.go.kr/cnet/front/main/main.do"><img src="https://www.career.go.kr/webres/images/common/logo.png" alt="커리어넷"></a>
+                    <a href="https://www.youthcenter.go.kr/main.do"><img src="https://www.youthcenter.go.kr/images/common/logo.png" alt="온라인 청년센터"></a>
+
+                </a>
+            </div>
+        </footer>
+        <aside>
+            <a class="top" href="#"><img src="{% static 'img/top.png' %}"></a>
+        </aside>
+    </body>
+</html>

@@ -1,0 +1,182 @@
+<!--청년제도상세-->
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>우석대학교 일자리 플러스센터</title>
+        <link rel="stylesheet" href="{% static 'css/basic_style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/youthpolicy_detail_style.css' %}">
+    </head>
+    <body id="container">
+        <header>
+            <div>
+                <div class="links">
+                {% if user.is_authenticated %}
+        <a>안녕하세요, {{ user.name }}님! </a>
+        <a href="{% url 'logout' %}">로그아웃</a>
+    {% else %}
+        <a href="{% url 'login' %}">로그인</a>
+        <a href="{% url 'join' %}">회원가입</a>
+    {% endif %}
+                </div>
+            </div>
+            <a href="{% url 'index' %}">
+                <div id="logo">
+                    <img src="{% static 'img/logo1.jpg' %}" width="60px">
+                        <div id="logo_text">
+                        <img src="{% static 'img/logo2.jpg' %}" width="150px">
+                        일자리 플러스센터
+                    </div>
+                </div>
+            </a>
+             <nav>
+                <ul><a href="{% url 'noticeboard' %}">공지사항</a></ul>
+                <ul><a href="{% url 'recruitment' %}">채용정보</a></ul>
+                <ul><a href="{% url 'job' %}">직업정보</a></ul>
+                <ul><a href="{% url 'youthpolicy' %}">청년제도</a></ul>
+                <ul><a href="{% url 'education' %}">교육프로그램</a></ul>
+                <ul><a href="{% url 'post_list' %}">게시판</a></ul>
+             </nav>
+        </header>
+        <main>
+            <hr>
+            <h1>직업정보</h1>
+            <div  id="policy_box1">
+            <table>
+		<colgroup>
+			<col style="width: 150px">
+			<col style="width: auto,">
+			<col style="width: 140px">
+			<col style="width: 20%">
+		</colgroup>
+		<tbody>
+			<tr>
+				<th scope="row">정책명</th>
+				<td colspan="3">{{board.polyBizSjnm}}</td>
+			</tr>
+            <tr>
+				<th scope="row">지원내용</th>
+				<td colspan="3">{{board.sporCn}}</td>
+			</tr>
+            <tr>
+				<th scope="row">지원규모</th>
+				<td colspan="3">{{board.sporScvl}}</td>
+			</tr>
+            <tr>
+				<th scope="row">정책소개</th>
+				<td colspan="3">{{board.polyItcnCn}}</td>
+			</tr>
+            <tr>
+				<th scope="row">운영기간</th>
+				<td>{{board.bizPrdCn}}</td>
+                <th scope="row">신청기간</th>
+				<td>{{board.rqutPrdCn}}</td>
+			</tr>
+            <tr>
+				<th scope="row">연령</th>
+				<td colspan="3">{{board.ageInfo}}</td>
+			</tr>
+            <tr>
+				<th scope="row">학력요건</th>
+				<td>{{board.accrRqisCn}}</td>
+                <th scope="row">전공요건</th>
+				<td>{{board.majrRqisCn}}</td>
+			</tr>
+            <tr>
+				<th scope="row">취업상태</th>
+				<td>{{board.empmSttsCn}}</td>
+                <th scope="row">특화분야</th>
+				<td>{{board.splzRlmRqisCn}}</td>
+			</tr>
+            <tr>
+				<th scope="row">거주지및소득조건</th>
+				<td colspan="3">{{board.prcpCn}}</td>
+			</tr>
+            <tr>
+				<th scope="row">추가단서사항</th>
+				<td colspan="3">{{board.aditRscn}}</td>
+			</tr>
+            <tr>
+				<th scope="row">참여제한대상</th>
+				<td colspan="3">{{board.prcpLmttTrgtCn}}</td>
+			</tr>
+            <tr>
+				<th scope="row">신청절차</th>
+				<td colspan="3">{{board.rqutProcCn}}</td>
+			</tr>
+            <tr>
+				<th scope="row">제출서류</th>
+				<td colspan="3">{{board.pstnPaprCn}}</td>
+			</tr>
+            <tr>
+				<th scope="row">참고사이트</th>
+				<td colspan="3">{{board.rfcSiteUrla1}}<br>{{board.rfcSiteUrla2}}</td>
+			</tr>
+            <tr>
+                    <th scope="row">기타사항</th>
+                    <td colspan="3">{{board.etct}}</td>
+                </tr>
+		</tbody>
+	    </table>
+        </div>
+        <div id="policy_box2">
+        <table>
+            <colgroup>
+                <col style="width: 130px">
+                <col style="width: auto,">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th scope="row">주관부처명</th>
+                    <td>{{board.mngtMson}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">담당자이름</th>
+                    <td>{{board.mngtMrofCherCn}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">담당자연락처</th>
+                    <td>{{board.cherCtpcCn}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <table>
+            <colgroup>
+                <col style="width: 130px">
+                <col style="width: auto,">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th scope="row">운영기관명</th>
+                    <td>{{board.cnsgNmor}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">담당자연락처</th>
+                    <td>{{board.tintCherCtpcCn}}</td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        <button onclick="history.back();">돌아가기</button>
+            <hr>
+        </main>
+        <footer>
+            <div>
+                <p>우석대학교 일자리 플러스센터</p>
+                <p>캡스톤 디자인 나으리 조</p>
+            </div>
+            <div id="footer_links" >
+                <a href="https://data.seoul.go.kr/">
+                    <img src="https://data.seoul.go.kr/resources/img/common/logo.png" alt="서울 열린데이터광장">
+                    <a href="https://www.career.go.kr/cnet/front/main/main.do"><img src="https://www.career.go.kr/webres/images/common/logo.png" alt="커리어넷"></a>
+                    <a href="https://www.youthcenter.go.kr/main.do"><img src="https://www.youthcenter.go.kr/images/common/logo.png" alt="온라인 청년센터"></a>
+
+                </a>
+            </div>
+        </footer>
+        <aside>
+            <a class="top" href="#"><img src="{% static 'img/top.png' %}"></a>
+        </aside>
+    </body>
+</html>
