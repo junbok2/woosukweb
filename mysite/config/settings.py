@@ -121,7 +121,7 @@ TIME_ZONE = 'Asia/Seoul'
 USE_I18N = True
 # 수정
 USE_TZ = False
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
