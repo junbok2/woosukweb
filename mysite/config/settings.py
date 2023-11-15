@@ -80,9 +80,9 @@ DATABASES = {
         # django db를 mysql로 사용하겠음
         'ENGINE': 'django.db.backends.mysql',
         # DB 이름 지어주기
-        'NAME': 'mysite_Django',
+        'NAME': 'mysite_django',
         # 사용자 유저 계정 생성 후 입력하기
-        'USER': 'mysite_Django_id',
+        'USER': 'mysite_django_id',
         # 사용자 비밀번호 생성 후 입력하기
         'PASSWORD': '123456',
         # default host인 localhost
@@ -126,10 +126,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
+STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'media'),
-)
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -139,7 +140,3 @@ LOGIN_REDIRECT_URL= '/'
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-if DEBUG:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-    MEDIA_URL = 'media/'
