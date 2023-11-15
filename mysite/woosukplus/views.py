@@ -73,7 +73,7 @@ def join(request):
     else:
         form = UserRegistrationForm()
 
-    return render(request, 'woosukplus/join.html', {'form': form})
+    return render(request, 'woosukplus/join.html',  {'form': form, 'errors': form.errors})
 
 def user_login(request):
     if request.method == 'POST':

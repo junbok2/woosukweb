@@ -1,0 +1,107 @@
+@font-face {
+    font-family: 'Pretendard';
+    src: url('../font/Pretendard-Light.woff2') format('woff2'),
+        url('../font/Pretendard-Light.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Pretendard';
+    src: url('../font/Pretendard-Bold.woff2') format('woff2'),
+        url('../font/Pretendard-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+* {
+    font-family: "Pretendard";
+    color: #333;
+    text-decoration: none;
+    text-align: center;
+}
+main {
+    width: 80%;
+    margin: auto;
+}
+
+body {
+    margin: 0px;
+}
+h1 {
+    font-size: 3rem;
+    margin: 30px auto;
+}
+
+.links {
+    background-color: #0C4DA2;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 10px 0;
+}
+.links a {
+    color: white;
+    text-decoration: none;
+    margin: 0 5px;
+}
+#logo {
+    width: 200px;
+    margin: -20px 0 0 20px;
+    float: left;
+    display: flex;
+}
+header #logo {
+    padding: 40px 0 0 0;
+}
+#logo_text {
+    font-weight: 600;
+    color: #17702d;
+}
+nav {
+    width: 1000px;
+    height: 150px;
+    margin: 0 0 0 200px;
+    padding: 0 40px;
+}
+.login {
+    margin: 0 0 0 30px;
+}
+nav ul {
+    list-style-type: none;
+    font-weight: bold;
+    float: left;
+    font-size: 1.2em;
+    padding: 30px 40px;
+    margin: 20px 0;
+    white-space: nowrap;
+}
+ul a:hover {
+    color: #0C4DA2;
+}
+footer{
+    background-color: #f0f0f0;
+}
+#footer_links{
+    width:80%;
+    background-color: white;
+    margin: 10px auto;
+}
+footer>div{
+    padding: 15px 0;
+}
+
+#footer_links img{
+    margin: 10px;
+}
+.top {
+    position: fixed;
+    bottom: 0%;
+    right: 0%;
+}
+
+
+
+
+

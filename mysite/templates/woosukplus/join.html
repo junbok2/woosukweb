@@ -1,34 +1,74 @@
-<!--회원가입-->
 <!DOCTYPE html>
 {% load static %}
-<html>
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>로그인</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
     <link rel="stylesheet" href="{% static 'css/join_style.css' %}">
+    <style>
+        #password-error {
+            color: red;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
     <div id="screen_full">
         <img src="{% static 'img/join1.png' %}" class="join1">
         <div id="screen_bottom">
-
             <div id="screen_right">
                 <div class="container">
                     <h2>회원가입</h2>
-                    <form method="post" action="{% url 'join' %}">
+                    <form method="post" action="{% url 'join' %}" id="join-form">
                         {% csrf_token %}
-                      <input type="text" name="name" placeholder="이름">
-                      <input type="text" name="major" placeholder="전공">
-                      <input type="text" name="university" placeholder="대학교">
-                      <input type="email" name="email" placeholder="이메일">
-                      <input type="password" name="password1" placeholder="비밀번호">
-                      <input type="password" name="password2" placeholder="비밀번호 확인">
-                      <button type="submit">가입하기</button>
+                        <input type="text" name="name" placeholder="이름">
+                        <input type="text" name="username" placeholder="유저이름">
+                        <input type="text" name="major" placeholder="전공">
+                        <input type="text" name="university" placeholder="대학교">
+                        <input type="email" name="email" placeholder="이메일">
+                        <input type="password" name="password1" id="password1" placeholder="비밀번호">
+                        <input type="password" name="password2" id="password2" placeholder="비밀번호 확인">
+                        <div id="password-error"></div>
+                        <button type="submit">가입하기</button>
                     </form>
-
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('join-form');
+        const password1 = document.getElementById('password1');
+        const password2 = document.getElementById('password2');
+        const errorContainer = document.getElementById('password-error');
+
+        form.addEventListener('submit', function (event) {
+            const password = password1.value;
+            const confirmPassword = password2.value;
+
+            if (password.length < 8) {
+                event.preventDefault();
+                errorContainer.innerText = '비밀번호는 최소 8자 이상이어야 합니다.';
+            } else if (/\d{3,}/.test(password)) {
+                event.preventDefault();
+                errorContainer.innerText = '연속된 숫자는 허용되지 않습니다.';
+            } else if (password !== confirmPassword) {
+                event.preventDefault();
+                errorContainer.innerText = '비밀번호가 일치하지 않습니다.';
+            }
+        });
+
+        // Clear error message on input change
+        password1.addEventListener('input', function () {
+            errorContainer.innerText = '';
+        });
+
+        password2.addEventListener('input', function () {
+            errorContainer.innerText = '';
+        });
+    });
+</script>
 </body>
 </html>

@@ -1,0 +1,62 @@
+
+/* 제목 스타일 */
+h1 {
+    font-size: 24px;
+    margin: 20px 0;
+}
+
+/* 게시판 글 작성 폼 스타일 */
+form {
+    margin-left : 10%;
+    margin-right : 10%;
+    margin-bottom : 3%;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* 입력 필드 스타일 */
+label {
+    font-weight: bold;
+}
+
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* 버튼 스타일 */
+.bt_wrap {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.bt_list a,
+.bt_submit a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.bt_submit a {
+    background-color: #28a745; /* "글 작성" 버튼 색상 변경 */
+}
+
+/* 반응형 스타일링 */
+@media screen and (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+
+    form {
+        padding: 10px;
+    }
+}
