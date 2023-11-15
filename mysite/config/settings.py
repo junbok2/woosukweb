@@ -128,7 +128,6 @@ USE_TZ = False
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'media'),
 )
 
 # Default primary key field type
@@ -139,7 +138,3 @@ LOGIN_REDIRECT_URL= '/'
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-if DEBUG:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-    MEDIA_URL = 'media/'
