@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <title>우석대학교 일자리 플러스센터</title>
     <link rel="stylesheet" href="{% static 'css/basic_style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/BOARD_style.css' %}">
 
 </head>
 <body id="container">
@@ -66,7 +65,7 @@
         </div>
         <div class="bt_wrap">
         <span class = "bt_list"><a href="{% url 'post_list' %}">목록</a></span>
-        <span class = "bt_submit"><a href="{% url 'post_list' %}" type="submit">글 작성</a></span>
+        <span class="bt_submit"><button type="submit">글 작성</button></span>
         </div>
     </form>
         <hr>

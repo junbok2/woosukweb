@@ -4,31 +4,34 @@ input[type="radio"] {
 
 .tab_content_noticeboard input[type="radio"] + label { /* 탭버튼 */
     display: inline-block;
-    padding: 20px;
+    padding: 14px 15px;
     background: white;
-    color: #0000FF;
-    font-size: 14px;
+    color: #000000;
+    font-size: 18px;
     cursor: pointer;
-    border: 1px solid transparent;
-    margin-right: 0px;
     border: 1px solid #999;
-
+    margin-right: -10px;
 }
 
+
 .tab_content_noticeboard input[type="radio"]:checked + label {  /* 버튼 선택시 */
-    background: #0055FF;
+    background: #0C4DA2;
     color: white;
 }
 
-.tab_content_noticeboard .conbox_noticeboard { /* 내용 */
-    border: 1px solid #999;
-    width: 310px;
-    height: 230px;
+.tab_content_noticeboard{
+    margin-left: -140px;
+}
+
+.box_noticeboard {                      /* 내용 */
+    border-top: 3px solid #0C4DA2;
+    width: 400px;
+    height: 270px;
     background: white;
     margin: 0 auto;
     display: none;
+    margin-left: 140px;
 }
-
 
 
 .tab_content_noticeboard input[id="tab01"]:checked ~ .con1 {
@@ -40,7 +43,6 @@ input[type="radio"] {
 .tab_content_noticeboard input[id="tab03"]:checked ~ .con3 {
     display: block;
 }
-
 
 
 .slider {
@@ -61,14 +63,14 @@ input[type="radio"] {
 
 
 #screen_full {
-    width: 100%;
+    width: 1220px;
     height: 100vh;
     display: flex;
     flex-direction: column;
+    margin: 0 auto;
 }
 
 #screen_top {
-    background: green;
     height: 400px;
 }
 
@@ -76,38 +78,93 @@ input[type="radio"] {
     display: flex;
     /* background: blue; */
     height: calc(100% - 400px);
+    margin-top: 20px;
+    flex-wrap: nowrap;
 }
 
 #screen_left {
-    background: yellow;
-    width: 40%;
-    height: 80%;
+    width: 400px;
+    height: 330px;
     border: 1px solid #999;
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
 }
+.screen_left_top {
+
+    height: 15%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.screen_left_top1 {
+    background-color: #0C4DA2;
+    flex: 5px;
+    padding: 12px;
+}
+
+.screen_left_top2 {
+    flex: 20%;
+    text-align: right;
+    padding: 10px;
+}
+
+.screen_left_bottom {
+
+    height: 85%;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    border-top: 3px solid #0C4DA2;
+}
+
+
+
 #screen_right {
-    background: red;
-    width: 50%;
-    height: 80%;
+    border: 1px solid black;
+    width: 400px;
+    height: 330px;
+    margin-right: 10px;
 }
+
+#screen_plus {
+    width: 400px;
+    height: 310px;
+    border: 1px solid black;
+    text-align: center;
+    padding: 10px;
+
+}
+.login-text {
+    margin-top: 100px;
+    padding: 10px;
+}
+.login-button a {
+    background-color: #0E3266;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
 
 .left-text {
     text-align: left;
     font-weight: bold;
+    font-size: 24px;
+    margin-left: 20px;
+}
+.left-text a {
+    color: white;
+}
+
+.right-button {
+    flex: 1;
+    text-align: right;
+    padding: 10px;
 }
 
 .right-button img {
-    width: 20px;
-    height: 20px;
-    flex: 0;
-    display: block;
-    text-align: center;
-    text-decoration: none;
-}
-
-
-.announcement {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    margin-top: 20px;
+    width: 30px;
+    height: 30px;
 }
