@@ -144,3 +144,15 @@ def board_page(request):
         posts = paginator.page(1)
 
     return render(request, 'post_list.html', {'posts': posts, 'paginator': paginator})
+
+#삭제
+# woosukplus/views.py
+
+def post_delete(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+
+    if request.method == 'POST':
+        post.delete()
+        return redirect('post_list')
+
+    return render(request, 'woosukplus/post_delete.html', {'post': post})
