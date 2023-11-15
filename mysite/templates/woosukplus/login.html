@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <title>로그인</title>
     <link rel="stylesheet" href="{% static 'css/login_style.css' %}">
+     <style>
+        .error-messages {
+            color: red;
+        }
+    </style>
 </head>
 <body>
     <div id="screen_full">
@@ -16,6 +21,13 @@
             <div id="screen_right">
                 <div class="container">
                     <h2>로그인</h2>
+                    {% if messages %}
+                        <div class="error-messages">
+                            {% for message in messages %}
+                                <p>{{ message }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                     <form method="post" action="{% url 'login' %}">
                         {% csrf_token %}
                         <input type="email" name="email" placeholder="이메일">

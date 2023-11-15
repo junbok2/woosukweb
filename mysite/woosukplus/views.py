@@ -7,6 +7,7 @@ from .forms import UserRegistrationForm, UserLoginForm, PostForm
 from .models import User, Post
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 def index(request):
     return render(request, "woosukplus/index.html")
@@ -73,7 +74,7 @@ def join(request):
     else:
         form = UserRegistrationForm()
 
-    return render(request, 'woosukplus/join.html', {'form': form})
+    return render(request, 'woosukplus/join.html',  {'form': form, 'errors': form.errors})
 
 def user_login(request):
     if request.method == 'POST':
@@ -83,12 +84,13 @@ def user_login(request):
             password = form.cleaned_data.get('password')
             user = authenticate(request, email=email, password=password)
             if user is not None:
-                login(request, user)  # 수정: 'request' 객체만 전달
-                return redirect('index')  # 'index' 페이지로 리디렉션
+                login(request, user)
+                return redirect('index')
+            else:
+                messages.error(request, '이메일 또는 비밀번호가 일치하지 않습니다.')
     else:
         form = UserLoginForm()
     return render(request, 'woosukplus/login.html', {'form': form})
-
 
 def logout_view(request):
     logout(request)  # 사용자 로그아웃
