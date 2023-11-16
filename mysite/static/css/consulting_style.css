@@ -1,0 +1,104 @@
+.container {
+    width: 50%;
+    height: 100%;
+}
+.container input[type="text"] {
+    width: 200px;
+    height: 30px;
+    padding: 5px;
+}
+
+
+#screen_right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #999;
+    background-color:#EBFFFF;
+}
+
+.container div {
+    margin-bottom: 30px;
+
+}
+
+.container h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+    margin-right: 400px;
+}
+
+#field {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#field label {
+    margin-right: 20px;
+}
+.college_way {
+    display: flex;
+    align-items: center;
+
+}
+.college_way > div {
+    margin-right: 130px;
+    margin-left: 10px;
+}
+#name {
+    margin-right: 280px;
+}
+#name-input {
+    text-align: left;
+}
+#mail {
+    margin-right: 210px;
+}
+#mail-input {
+    text-align: left;
+}
+#day {
+    margin-right: 50px;
+    margin-left: 5px;
+}
+#counselor-input {
+    text-align: left;
+}
+.day_counselor {
+    display: flex;
+    align-items: center;
+}
+#time {
+    margin-right: 430px;
+}
+#place{
+    margin-right: 270px;
+}
+#place-input {
+    text-align: left;
+}
+#note{
+
+    margin-right: 450px;
+}
+
+#note-input {
+    width: 600px;
+    height: 150px;
+    text-align: left;
+    vertical-align: top;
+}
+button[type="submit"] {
+  background: #0B4085;
+    color: white;
+    width: 100px;
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #006AFF;
+    font-size: 16px;
+
+    margin-left: 30px;
+
+}

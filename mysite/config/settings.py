@@ -80,11 +80,11 @@ DATABASES = {
         # django db를 mysql로 사용하겠음
         'ENGINE': 'django.db.backends.mysql',
         # DB 이름 지어주기
-        'NAME': 'mysite_django4',
+        'NAME': 'mysite_Django',
         # 사용자 유저 계정 생성 후 입력하기
-        'USER': 'mysite_django_id4',
+        'USER': 'mysite_Django_id',
         # 사용자 비밀번호 생성 후 입력하기
-        'PASSWORD': 'rlawnsdn123',
+        'PASSWORD': '123456',
         # default host인 localhost
         'HOST': 'localhost',
         # MySQL default 포트 번호

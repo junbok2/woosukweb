@@ -158,3 +158,6 @@ def post_delete(request, pk):
         return redirect('post_list')
 
     return render(request, 'woosukplus/post_delete.html', {'post': post})
+
+def consulting(request):
+    return render(request, "woosukplus/consulting.html")

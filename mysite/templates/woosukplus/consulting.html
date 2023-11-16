@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>우석대학교 일자리 플러스센터</title>
+    <link rel="stylesheet" href="{% static 'css/basic_style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/consulting_style.css' %}">
+</head>
+<body id="container">
+<header>
+            <div>
+                <div class="links">
+                {% if user.is_authenticated %}
+        <a>안녕하세요, {{ user.name }}님! </a>
+        <a href="{% url 'logout' %}">로그아웃</a>
+    {% else %}
+        <a href="{% url 'login' %}">로그인</a>
+        <a href="{% url 'join' %}">회원가입</a>
+    {% endif %}
+                </div>
+            </div>
+            <a href="{% url 'index' %}">
+                <div id="logo">
+                    <img src="{% static 'img/logo1.jpg' %}" width="60px">
+                        <div id="logo_text">
+                        <img src="{% static 'img/logo2.jpg' %}" width="150px">
+                        일자리 플러스센터
+                    </div>
+                </div>
+            </a>
+             <nav>
+                <ul><a href="{% url 'noticeboard' %}">공지사항</a></ul>
+                <ul><a href="{% url 'recruitment' %}">채용정보</a></ul>
+                <ul><a href="{% url 'job' %}">직업정보</a></ul>
+                <ul><a href="{% url 'youthpolicy' %}">청년제도</a></ul>
+                <ul><a href="{% url 'education' %}">교육프로그램</a></ul>
+                <ul><a href="{% url 'post_list' %}">게시판</a></ul>
+                <ul><a href="{% url 'consulting' %}">상담신청</a></ul>
+
+             </nav>
+        </header>
+<main>
+    <hr>
+    <div id="screen_full">
+            <div id="screen_right">
+                <div class="container">
+                    <h2>상담신청</h2>
+                    <div id="name">
+                        <label for="name">신청자</label>
+                        <input type="text" name="name" id="name-input">
+                    </div>
+
+                    <div id="field">
+                        <label for="field">상담분야</label>
+
+
+    <input type="checkbox" id="career" name="counselingField" value="career">
+    <label for="career">진로</label><br>
+
+    <input type="checkbox" id="employment" name="counselingField" value="employment">
+    <label for="employment">취업</label><br>
+
+    <input type="checkbox" id="life" name="counselingField" value="life">
+    <label for="life">생활</label><br>
+
+    <input type="checkbox" id="jobApplication" name="counselingField" value="jobApplication">
+    <label for="jobApplication">입사지원서</label><br>
+
+    <input type="checkbox" id="mockInterview" name="counselingField" value="mockInterview">
+    <label for="mockInterview">모의면접</label><br>
+</div>
+
+<div class="college_way">
+                    <div id="college">
+    <label for="college">단과대학</label>
+    <select id="college-input" name="college">
+        <option value="computer">컴퓨터공학과</option>
+        <option value="construction">건축학과</option>
+        <option value="Mechanical">기계공학과</option>
+        <option value="Electrical">전기공학과</option>
+    </select>
+</div>
+
+                    <div id="way">
+    <label for="way">상담방법</label>
+    <select id="way-input" name="way">
+        <option value="Face-to-face">대면</option>
+        <option value="Non-face-to-face">비대면</option>
+    </select>
+</div>
+</div>
+
+                    <div id="mail">
+                        <label for="mail">이메일/카톡아이디</label>
+                        <input type="text" name="mail" id="mail-input">
+                    </div>
+
+                    <div class="day_counselor">
+
+                    <div id="day">
+    <label for="day">상담날짜</label>
+    <input type="date" id="day-input" name="day">
+</div>
+
+                    <div id="counselor">
+                        <label for="counselor">상담선생님</label>
+                        <input type="text" name="counselor" id="counselor-input">
+                        </div>
+                    </div>
+
+<div id="time_place">
+                    <div id="time">
+    <label for="time">상담시간</label>
+    <select id="time-input" name="time">
+        <option value="9AM">9AM</option>
+        <option value="10AM">10AM</option>
+        <option value="11AM">11AM</option>
+        <option value="12PM">12PM</option>
+        <option value="13PM">13PM</option>
+        <option value="14PM">14PM</option>
+        <option value="15PM">15PM</option>
+
+
+    </select>
+</div>
+
+
+                    <div id="place">
+                        <label for="place">상담장소</label>
+                        <input type="text" name="place" id="place-input">
+                        </div>
+</div>
+                    <div id="note">
+                        <label for="note">상담시 참고사항</label>
+                        <input type="text" name="note" id="note-input">
+                        </div>
+
+
+                    <div class="row">
+                        <button type="submit">가입하기</button>
+                        <button type="submit">목록</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <hr>
+</main>
+<footer>
+            <div>
+                <p>우석대학교 일자리 플러스센터</p>
+                <p>캡스톤 디자인 나으리 조</p>
+            </div>
+            <div id="footer_links" >
+                <a href="https://data.seoul.go.kr/">
+                    <img src="https://data.seoul.go.kr/resources/img/common/logo.png" alt="서울 열린데이터광장">
+                    <a href="https://www.career.go.kr/cnet/front/main/main.do"><img src="https://www.career.go.kr/webres/images/common/logo.png" alt="커리어넷"></a>
+                    <a href="https://www.youthcenter.go.kr/main.do"><img src="https://www.youthcenter.go.kr/images/common/logo.png" alt="온라인 청년센터"></a>
+
+                </a>
+            </div>
+        </footer>
+<aside>
+    <a class="top" href="#"><img src="{% static 'img/top.png' %}"></a>
+</aside>
+</body>
+</html>
