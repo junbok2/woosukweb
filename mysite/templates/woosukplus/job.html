@@ -181,6 +181,25 @@ $("#pagebutton_previous").click(function() {
     }
 
 });
+function adjustMainMinWidth() {
+            var job_container = document.getElementById('job_container');
+            var search_tab = document.getElementById('search_tab');
+            var windowWidth = window.innerWidth || document.documentElement.clientWidth;
+
+
+            if (windowWidth < 1000) {
+                job_container.style.width = '600px';
+            } else if (windowWidth > 1500) {
+                job_container.style.width = '1100px';
+            }
+            else {
+                job_container.style.width = '100%';
+            }
+        }
+
+        window.addEventListener('resize', adjustMainMinWidth);
+
+        window.addEventListener('load', adjustMainMinWidth);
         </script>
     </body>
 </html>

@@ -161,6 +161,21 @@ $("#pagebutton_previous").click(function() {
     }
 
 });
+function adjustMainMinWidth() {
+            var policy_container = document.getElementById('policy_container');
+            var windowWidth = window.innerWidth || document.documentElement.clientWidth;
+
+
+            if (windowWidth < 1300) {
+                policy_container.style.width = '800px';
+            } else {
+                policy_container.style.width = '100%';
+            }
+        }
+
+        window.addEventListener('resize', adjustMainMinWidth);
+
+        window.addEventListener('load', adjustMainMinWidth);
         </script>
     </body>
 </html>

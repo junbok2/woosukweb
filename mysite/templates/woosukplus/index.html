@@ -38,39 +38,36 @@
                 <ul><a href="{% url 'post_list' %}">게시판</a></ul>
              </nav>
         </header>
+
 <main>
     <hr>
-    <div id="screen_full">
-
-                <div id="screen_top">
+<div id="screen_top">
 
                     <div class="slider">
                     <img src="{% static 'img/woo.png' %}" class="slide-image">
-                        <img src="{% static 'img/slide02.PNG' %}" class="slide-image">
-                        <img src="{% static 'img/slide03.PNG' %}" class="slide-image">
-                    </div>
-
+                    <img src="{% static 'img/woo_logo.png' %}" class="slide-image2">
                 </div>
-
-                <div id="screen_bottom">
-
-                    <div id="screen_left">
-                        <div class="screen_left_top">
-                            <div class="screen_left_top1">
-                            <div class="left-text">
-                            <a>공지사항</a>
-                            </div>
-                            </div>
-                        <div class="screen_left_top2">
-                            <div class="right-button">
-                                <a href="{% url 'noticeboard' %}">
-                                <img src="{% static 'img/plus.png' %}" alt="공지사항"></a>
-                            </div>
-                        </div>
-                    </div>
+    <div id="screen_full">
+        <div id="screen_center">
+        <div id="screen_left">
+            <div class="screen_left_top">
+                <div class="screen_left_top1">
+                <div class="left-text">
+                <a>공지사항</a>
+                </div>
+                </div>
+            <div class="screen_left_top2">
+                <div class="right-button">
+                    <a href="{% url 'noticeboard' %}"><img src="{% static 'img/plus.png' %}" alt="공지사항"></a>
+                </div>
+            </div>
+        </div>
             <div class="screen_left_bottom">
         <div class="noticeboard-link">
-            <a href="{% url 'noticeboard' %}">test</a>
+
+            //내용
+
+
         </div>
     </div>
 </div>
@@ -78,8 +75,6 @@
                         <div class="tab_content_noticeboard">
                             <input type="radio" name="tabmenu" id="tab01" checked>
                             <label for="tab01">채용정보</label>
-                            <input type="radio" name="tabmenu" id="tab02">
-                            <label for="tab02">직업정보</label>
                             <input type="radio" name="tabmenu" id="tab03">
                             <label for="tab03">청년정책</label>
 
@@ -89,22 +84,11 @@
                         </div>
                     </div>
 
-                     <div id="screen_plus">
-                        <div class="login-text">
-                            <a>로그인을 해주세요</a>
-                        </div>
-                    <div class="login-button">
-                        <div class="login-text">
-                            <a>로그인을 해주세요</a>
-                        </div>
-                    <div class="login-button">
-                        <a href="{% url 'login' %}">로그인</a>
-                    </div>
-                </div>
-                </div>
-</div>
-                </div>
 
+
+                </div>
+        </div>
+    </div>
     <hr>
 </main>
 <footer>
