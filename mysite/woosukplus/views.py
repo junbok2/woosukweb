@@ -8,6 +8,9 @@ from .models import User, Post
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from .forms import UserProfileUpdateForm
+
+
 
 def index(request):
     return render(request, "woosukplus/index.html")
@@ -146,3 +149,20 @@ def board_page(request):
         posts = paginator.page(1)
 
     return render(request, 'post_list.html', {'posts': posts, 'paginator': paginator})
+
+
+def user_profile(request):
+    return render(request, "woosukplus/user_profile.html")
+
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = UserProfileUpdateForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('user_profile')  # 프로필 페이지로 리다이렉트
+    else:
+        form = UserProfileUpdateForm(instance=request.user)
+
+    return render(request, 'woosukplus/edit_profile.html', {'form': form})
