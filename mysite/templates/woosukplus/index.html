@@ -65,7 +65,7 @@
             <div class="screen_left_bottom">
         <div class="noticeboard-link">
 
-            //내용
+            공지사항
 
 
         </div>
@@ -75,12 +75,30 @@
                         <div class="tab_content_noticeboard">
                             <input type="radio" name="tabmenu" id="tab01" checked>
                             <label for="tab01">채용정보</label>
-                            <input type="radio" name="tabmenu" id="tab03">
-                            <label for="tab03">청년정책</label>
-
-                            <div class="box_noticeboard con1">내용 01</div>
-                            <div class="box_noticeboard con2">내용 02</div>
-                            <div class="box_noticeboard con3">내용 03</div>
+                            <input type="radio" name="tabmenu" id="tab02">
+                            <label for="tab02">청년정책</label>
+                            <div class="box_noticeboard con1">
+                                <table class="index_table">
+                                    {%for i in value_re %}
+                                    <tr>
+                                        <td>{{i.1}}</td>
+                                        <td><a href="{% url 'recruitment_detail' boardid=i.0 %}">{{i.2}}</a></td>
+                                        <td>{{i.4}}</td>
+                                    </tr>
+                                    {%endfor%}
+                                </table>
+                            </div>
+                            <div class="box_noticeboard con2">
+                                <table class="index_table">
+                                    {%for i in value_yo %}
+                                    <tr>
+                                        <td><a href="{% url 'youthpolicy_detail' pageIndex=1 boardid=i.bizId %}">{{i.polyBizSjnm}}</a></td>
+                                        <td>연령({{i.ageInfo}})</td>
+                                        <td>{{i.cnsgNmor}}</td>
+                                    </tr>
+                                    {%endfor%}
+                                </table>
+                            </div>
                         </div>
                     </div>
 

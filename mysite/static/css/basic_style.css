@@ -88,6 +88,7 @@ footer{
     width:80%;
     background-color: white;
     padding: 10px auto;
+    margin: auto;
 }
 footer>div{
     padding: 15px 0;

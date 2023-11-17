@@ -10,13 +10,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 def index(request):
-    return render(request, "woosukplus/index.html")
+    value_re = recruitment_api(5)
+    value_yo = youthpolicy_search_api(1, '', 5)
+    return render(request, "woosukplus/index.html", {'value_re': value_re, 'value_yo': value_yo['youthPolicy']})
 
 def noticeboard(request):
     return render(request, "woosukplus/noticeboard.html")
 
 def recruitment(request):
-    value = recruitment_api()
+    value = recruitment_api(600)
     page = request.GET.get('page')
     paginator = Paginator(value, 20)
 
@@ -32,7 +34,7 @@ def recruitment(request):
     return render(request, "woosukplus/recruitment.html", {'page_obj':page_obj, 'paginator':paginator, 'custom_range':custom_range})
 
 def recruitment_detail(request, boardid):
-    board = recruitment_detail_api(boardid)
+    board = recruitment_detail_api(boardid, 600)
     return render(request, "woosukplus/recruitment_detail.html", {'board':board})
 def job(request):
     return render(request, "woosukplus/job.html")
@@ -54,12 +56,12 @@ def youthpolicy(request):
 def youthpolicy_search(request):
     pageIndex = request.POST.get('pageIndex')
     search_value = request.POST.get('search_value')
-    value = youthpolicy_search_api(pageIndex, search_value)
+    value = youthpolicy_search_api(pageIndex, search_value, 9)
 
     context = {'value': value, 'pageIndex': pageIndex}
     return JsonResponse(context)
 def youthpolicy_detail(request, boardid, pageIndex ):
-    board = youthpolicy_detail_api(pageIndex, boardid)
+    board = youthpolicy_detail_api(pageIndex, boardid, 9)
     return render(request, "woosukplus/youthpolicy_detail.html", {'board': board})
 def education(request):
     return render(request, "woosukplus/education.html")

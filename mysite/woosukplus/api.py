@@ -1,11 +1,11 @@
 import requests
 import xmltodict
 
-recruitment_url = "http://openapi.seoul.go.kr:8088/6c586a6a4e71777334354f4d4f4362/xml/GetJobInfo/1/600/"
+recruitment_url = "http://openapi.seoul.go.kr:8088/6c586a6a4e71777334354f4d4f4362/xml/GetJobInfo/1/"
 job_url = "https://www.career.go.kr/cnet/front/openapi/jobs.json?apiKey=83cb838c4d91f3007b180e06799b98c9"
-youthpolicy_url = "https://www.youthcenter.go.kr/opi/youthPlcyList.do?openApiVlak=ea09b7ca13fb6327e3bda28b&display=9&pageIndex="
-def recruitment_api():
-    req = requests.get(recruitment_url).content
+youthpolicy_url = "https://www.youthcenter.go.kr/opi/youthPlcyList.do?openApiVlak=ea09b7ca13fb6327e3bda28b&display="
+def recruitment_api(totalvalue):
+    req = requests.get(recruitment_url + str(totalvalue)).content
     xmlObject = xmltodict.parse(req)
     allData = xmlObject['GetJobInfo']['row']
 
@@ -20,8 +20,8 @@ def recruitment_api():
 
     return value
 
-def recruitment_detail_api(boardid):
-    req = requests.get(recruitment_url).content
+def recruitment_detail_api(boardid, totalvalue):
+    req = requests.get(recruitment_url + str(totalvalue)).content
     xmlObject = xmltodict.parse(req)
     allData = xmlObject['GetJobInfo']['row']
 
@@ -42,14 +42,14 @@ def job_detail_api(pageIndex, boardid):
     for i in range(len(allData['jobs'])):
         if(allData['jobs'][i]['job_cd'] == boardid):
             return allData['jobs'][i]
-def youthpolicy_search_api(pageIndex, search_value):
-    req = requests.get(youthpolicy_url + str(pageIndex) + '&query=' + str(search_value)).content
+def youthpolicy_search_api(pageIndex, search_value, totalvalue):
+    req = requests.get(youthpolicy_url + str(totalvalue) + '&pageIndex=' + str(pageIndex) + '&query=' + str(search_value)).content
     xmlObject = xmltodict.parse(req)
     allData = xmlObject['youthPolicyList']
 
     return allData
-def youthpolicy_detail_api(pageIndex, boardid):
-    req = requests.get(youthpolicy_url + str(pageIndex)).content
+def youthpolicy_detail_api(pageIndex, boardid, totalvalue):
+    req = requests.get(youthpolicy_url + str(totalvalue) + '&pageIndex=' + str(pageIndex)).content
     xmlObject = xmltodict.parse(req)
     allData = xmlObject['youthPolicyList']['youthPolicy']
 
