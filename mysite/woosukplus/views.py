@@ -44,11 +44,18 @@ def job_search(request):
     searchJobCd = request.POST.get('searchJobCd')
     value = job_api(pageIndex,search_value,searchJobCd)
 
-    context = {'value': value, 'pageIndex':pageIndex}
+    if search_value == '':
+        search_value = 'all'
+    if searchJobCd == '':
+        searchJobCd = 'all'
+
+    context = {'value': value, 'pageIndex':pageIndex, 'search_value':search_value, 'searchJobCd':searchJobCd}
     return JsonResponse(context)
 
-def job_detail(request, pageIndex, boardid):
-    board = job_detail_api(pageIndex, boardid)
+def job_detail(request, pageIndex, boardid, search_value, searchJobCd):
+
+
+    board = job_detail_api(pageIndex, boardid, search_value, searchJobCd)
     return render(request, "woosukplus/job_detail.html", {'board': board})
 
 def youthpolicy(request):
@@ -58,10 +65,13 @@ def youthpolicy_search(request):
     search_value = request.POST.get('search_value')
     value = youthpolicy_search_api(pageIndex, search_value, 9)
 
-    context = {'value': value, 'pageIndex': pageIndex}
+    if search_value == '':
+        search_value = 'all'
+
+    context = {'value': value, 'pageIndex': pageIndex, 'search_value': search_value}
     return JsonResponse(context)
-def youthpolicy_detail(request, boardid, pageIndex ):
-    board = youthpolicy_detail_api(pageIndex, boardid, 9)
+def youthpolicy_detail(request, boardid, pageIndex, search_value ):
+    board = youthpolicy_detail_api(pageIndex, boardid, 9, search_value)
     return render(request, "woosukplus/youthpolicy_detail.html", {'board': board})
 def education(request):
     return render(request, "woosukplus/education.html")

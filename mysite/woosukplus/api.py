@@ -30,13 +30,18 @@ def recruitment_detail_api(boardid, totalvalue):
             return allData[i]
 
 
-def job_api(pageIndex, search_value,searchJobCd):
+def job_api(pageIndex, search_value, searchJobCd):
     req = requests.get(job_url + '&pageIndex=' + str(pageIndex) + '&searchJobNm=' + str(search_value) + '&searchJobCd=' + searchJobCd)
     allData = req.json()
     return allData
 
-def job_detail_api(pageIndex, boardid):
-    req = requests.get(job_url + '&pageIndex=' + pageIndex)
+def job_detail_api(pageIndex, boardid, search_value, searchJobCd):
+    if search_value == 'all':
+        search_value = ''
+    if searchJobCd == 'all':
+        searchJobCd = ''
+
+    req = requests.get(job_url + '&pageIndex=' + str(pageIndex) + '&searchJobNm=' + str(search_value) + '&searchJobCd=' + searchJobCd)
     allData = req.json()
 
     for i in range(len(allData['jobs'])):
@@ -48,8 +53,10 @@ def youthpolicy_search_api(pageIndex, search_value, totalvalue):
     allData = xmlObject['youthPolicyList']
 
     return allData
-def youthpolicy_detail_api(pageIndex, boardid, totalvalue):
-    req = requests.get(youthpolicy_url + str(totalvalue) + '&pageIndex=' + str(pageIndex)).content
+def youthpolicy_detail_api(pageIndex, boardid, totalvalue, search_value):
+    if search_value == 'all':
+        search_value = ''
+    req = requests.get(youthpolicy_url + str(totalvalue) + '&pageIndex=' + str(pageIndex) + '&query=' + str(search_value)).content
     xmlObject = xmltodict.parse(req)
     allData = xmlObject['youthPolicyList']['youthPolicy']
 

@@ -107,6 +107,7 @@ $("#search_btn").click(function() {
        search_ajax();
 });
 function search_ajax(){
+
       $.ajax({
                     url:'{% url 'job_search' %}',
                     dataType:'json',
@@ -114,23 +115,22 @@ function search_ajax(){
                     data:{'pageIndex':pageIndex, 'search_value':$("#input_search").val(), 'searchJobCd':$("#searchJobCd").val()},
                     headers: { "X-CSRFToken": '{{csrf_token}}' },
                     success:function(json){
-                        datalist(json.value);
+                        datalist(json.value, json.search_value, json.searchJobCd);
                         pageIndex = json.pageIndex;
                         pagingbutton(json.value.count, json.value.pageSize);
-                        console.log(json);
                     },
                     error : function(result){
                         alert('정보를 불러오지 못했습니다');
                     }
             });
 }
-function datalist(value) {
+function datalist(value, search_value, searchJobCd) {
     var job_container_content = document.getElementById("job_container_content");
     job_container_content.innerHTML = '';
     for (var i = 0; i < value['jobs'].length; i++ ) {
         job_container_content.innerHTML +=
         '<li>' +
-        '<a href=' + "job_detail/" + pageIndex + '&' + value['jobs'][i].job_cd + '>' +
+        '<a href=' + "job_detail/" + pageIndex + '&' + value['jobs'][i].job_cd + '&' + search_value + '&' + searchJobCd + '>' +
         '<h3>' + value['jobs'][i].job_nm + '</h3>' +
         '<div class="job_container_info">' +
         '<div><p>연봉</p>' + wage_data(i) + '</div>' +
