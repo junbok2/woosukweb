@@ -92,7 +92,7 @@
                                 <table class="index_table">
                                     {%for i in value_yo %}
                                     <tr>
-                                        <td><a href="{% url 'youthpolicy_detail' pageIndex=1 boardid=i.bizId %}">{{i.polyBizSjnm}}</a></td>
+                                        <td><a href="{% url 'youthpolicy_detail' pageIndex=1 boardid=i.bizId search_value='all' %}">{{i.polyBizSjnm}}</a></td>
                                         <td>연령({{i.ageInfo}})</td>
                                         <td>{{i.cnsgNmor}}</td>
                                     </tr>
