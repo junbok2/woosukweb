@@ -51,13 +51,23 @@
         <div class="titlevox">
             <div class="subject">
                 <span>{{ post.title }}</span>>
-
             </div>
          </div>
 
      <div>
         <p>{{ post.content }}</p>
+
      </div>
+
+        {% if user.is_authenticated and user == post.author %}
+            <form method="post" action="{% url 'post_delete' pk=post.pk %}">
+                {% csrf_token %}
+                <button type="submit">게시물 삭제</button>
+            </form>
+        {% endif %}
+     </div>
+
+
     <div  class="bottom_list">
         <ul>
             <li>

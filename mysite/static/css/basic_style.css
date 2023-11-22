@@ -14,7 +14,9 @@
     font-style: normal;
     font-display: swap;
 }
-
+h1,hr {
+    width: 100%;
+}
 * {
     font-family: "Pretendard";
     color: #333;
@@ -60,7 +62,6 @@ header #logo {
     color: #17702d;
 }
 nav {
-    width: 1000px;
     height: 150px;
     margin: 0 0 0 200px;
     padding: 0 40px;
@@ -86,7 +87,8 @@ footer{
 #footer_links{
     width:80%;
     background-color: white;
-    margin: 10px auto;
+    padding: 10px auto;
+    margin: auto;
 }
 footer>div{
     padding: 15px 0;

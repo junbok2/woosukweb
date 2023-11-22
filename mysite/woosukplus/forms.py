@@ -9,65 +9,34 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class UserRegistrationForm(UserCreationForm):
-    GENDER_CHOICES = [
-        ('M', '남성'),
-        ('F', '여성'),
-    ]
-
-    username = forms.CharField(
-        max_length=30,
-        label="아이디",
+    email = forms.EmailField(
+        label="이메일",
         widget=forms.TextInput(attrs={'class': 'form-control'}),
     )
-
-    password1 = forms.CharField(
-        label="비밀번호",
-        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+    username = forms.CharField(
+        max_length=30,
+        label="닉네임",
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
     )
-
-    password2 = forms.CharField(
-        label="비밀번호 확인",
-        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
-    )
-
     name = forms.CharField(
         max_length=40,
         label="이름",
         widget=forms.TextInput(attrs={'class': 'form-control'}),
     )
-
-    phone_number = forms.CharField(
-        max_length=20,
-        label="휴대전화번호",
-        widget=forms.TextInput(attrs={'class': 'form-control'}),
-    )
-
-    university = forms.CharField(
-        max_length=20,
-        label="소속대학",
-        widget=forms.TextInput(attrs={'class': 'form-control'}),
-    )
-
     major = forms.CharField(
-        max_length=20,
-        label="학과",
+        max_length=120,
+        label="전공",
         widget=forms.TextInput(attrs={'class': 'form-control'}),
     )
-
-    email = forms.EmailField(
-        label="이메일",
-        widget=forms.EmailInput(attrs={'class': 'form-control'}),
-    )
-
-    gender = forms.ChoiceField(
-        label="성별",
-        choices=GENDER_CHOICES,
-        widget=forms.Select(attrs={'class': 'form-control'}),
+    university = forms.CharField(
+        max_length=120,
+        label="대학교",
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
     )
 
     class Meta:
         model = User
-        fields = ('username', 'password1', 'password2', 'name', 'phone_number', 'email', 'gender', 'university', 'major')
+        fields = ('email', 'name', 'username', 'major', 'university', 'password1', 'password2')
 class UserLoginForm(forms.Form):
     email = forms.EmailField(
         label="이메일",
@@ -83,13 +52,3 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content']
-
-
-
-
-
-
-class UserProfileUpdateForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['username', 'name', 'phone_number', 'email', 'wk_sex']

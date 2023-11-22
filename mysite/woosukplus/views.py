@@ -8,18 +8,17 @@ from .models import User, Post
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import UserProfileUpdateForm
-
-
 
 def index(request):
-    return render(request, "woosukplus/index.html")
+    value_re = recruitment_api(5)
+    value_yo = youthpolicy_search_api(1, '', 5)
+    return render(request, "woosukplus/index.html", {'value_re': value_re, 'value_yo': value_yo['youthPolicy']})
 
 def noticeboard(request):
     return render(request, "woosukplus/noticeboard.html")
 
 def recruitment(request):
-    value = recruitment_api()
+    value = recruitment_api(600)
     page = request.GET.get('page')
     paginator = Paginator(value, 20)
 
@@ -35,7 +34,7 @@ def recruitment(request):
     return render(request, "woosukplus/recruitment.html", {'page_obj':page_obj, 'paginator':paginator, 'custom_range':custom_range})
 
 def recruitment_detail(request, boardid):
-    board = recruitment_detail_api(boardid)
+    board = recruitment_detail_api(boardid, 600)
     return render(request, "woosukplus/recruitment_detail.html", {'board':board})
 def job(request):
     return render(request, "woosukplus/job.html")
@@ -45,11 +44,18 @@ def job_search(request):
     searchJobCd = request.POST.get('searchJobCd')
     value = job_api(pageIndex,search_value,searchJobCd)
 
-    context = {'value': value, 'pageIndex':pageIndex}
+    if search_value == '':
+        search_value = 'all'
+    if searchJobCd == '':
+        searchJobCd = 'all'
+
+    context = {'value': value, 'pageIndex':pageIndex, 'search_value':search_value, 'searchJobCd':searchJobCd}
     return JsonResponse(context)
 
-def job_detail(request, pageIndex, boardid):
-    board = job_detail_api(pageIndex, boardid)
+def job_detail(request, pageIndex, boardid, search_value, searchJobCd):
+
+
+    board = job_detail_api(pageIndex, boardid, search_value, searchJobCd)
     return render(request, "woosukplus/job_detail.html", {'board': board})
 
 def youthpolicy(request):
@@ -57,12 +63,15 @@ def youthpolicy(request):
 def youthpolicy_search(request):
     pageIndex = request.POST.get('pageIndex')
     search_value = request.POST.get('search_value')
-    value = youthpolicy_search_api(pageIndex, search_value)
+    value = youthpolicy_search_api(pageIndex, search_value, 9)
 
-    context = {'value': value, 'pageIndex': pageIndex}
+    if search_value == '':
+        search_value = 'all'
+
+    context = {'value': value, 'pageIndex': pageIndex, 'search_value': search_value}
     return JsonResponse(context)
-def youthpolicy_detail(request, boardid, pageIndex ):
-    board = youthpolicy_detail_api(pageIndex, boardid)
+def youthpolicy_detail(request, boardid, pageIndex, search_value ):
+    board = youthpolicy_detail_api(pageIndex, boardid, 9, search_value)
     return render(request, "woosukplus/youthpolicy_detail.html", {'board': board})
 def education(request):
     return render(request, "woosukplus/education.html")
@@ -150,19 +159,14 @@ def board_page(request):
 
     return render(request, 'post_list.html', {'posts': posts, 'paginator': paginator})
 
+#삭제
+# woosukplus/views.py
 
-def user_profile(request):
-    return render(request, "woosukplus/user_profile.html")
+def post_delete(request, pk):
+    post = get_object_or_404(Post, pk=pk)
 
-
-@login_required
-def edit_profile(request):
     if request.method == 'POST':
-        form = UserProfileUpdateForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
-            return redirect('user_profile')  # 프로필 페이지로 리다이렉트
-    else:
-        form = UserProfileUpdateForm(instance=request.user)
+        post.delete()
+        return redirect('post_list')
 
-    return render(request, 'woosukplus/edit_profile.html', {'form': form})
+    return render(request, 'woosukplus/post_delete.html', {'post': post})
