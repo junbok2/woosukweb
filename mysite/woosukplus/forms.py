@@ -2,7 +2,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
-from .models import User, Post
+from .models import User, Post, Notice
 
 from django.contrib.auth import get_user_model
 
@@ -51,4 +51,9 @@ class UserLoginForm(forms.Form):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
+        fields = ['title', 'content']
+
+class NoticeForm(forms.ModelForm):
+    class Meta:
+        model = Notice
         fields = ['title', 'content']

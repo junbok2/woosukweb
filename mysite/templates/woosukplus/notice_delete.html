@@ -1,0 +1,18 @@
+<!-- woosukplus/templates/woosukplus/post_delete.html -->
+
+{% extends 'woosukplus/notice_detail.html' %}
+
+{% block title %}게시글 삭제 확인{% endblock %}
+
+{% block content %}
+  <h2>게시글 삭제 확인</h2>
+
+  <!-- 바로 삭제하는 폼 -->
+  <form method="post">
+    {% csrf_token %}
+    <p>정말로 이 게시글을 삭제하시겠습니까?</p>
+    <input type="submit" value="예">
+  </form>
+
+  <a href="{% url 'woosukplus/noticeboard' %}">아니오</a>
+{% endblock %}

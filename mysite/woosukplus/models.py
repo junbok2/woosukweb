@@ -58,7 +58,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     birthdate = models.DateField(null=True)  # 생년월일
     wk_user_type = models.CharField(max_length=30, null=True)  # 신분구분(WK_USER_TYPE)
     modify_ip = models.GenericIPAddressField(null=True)  # 수정IP
-    password = models.CharField(max_length=30, null=True)  # 패스워드
+    password = models.CharField(max_length=180, null=True)  # 패스워드
     start_date = models.DateTimeField(null=True)  # 사용시작일시
     end_date = models.DateTimeField(null=True)  # 사용종료일시
     department_code = models.CharField(max_length=30, null=True)  # 부서코드
@@ -117,3 +117,11 @@ class Post(models.Model):
         return self.title
 
 
+class Notice(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
