@@ -11,8 +11,9 @@ from django.contrib import messages
 
 def index(request):
     value_re = recruitment_api(5)
+    notices = Notice.objects.order_by('-created_at')[:5]
     value_yo = youthpolicy_search_api(1, '', 5)
-    return render(request, "woosukplus/index.html", {'value_re': value_re, 'value_yo': value_yo['youthPolicy']})
+    return render(request, "woosukplus/index.html", {'value_re': value_re, 'value_yo': value_yo['youthPolicy'], 'notices': notices})
 
 
 def recruitment(request):
@@ -169,7 +170,7 @@ def post_delete(request, pk):
 
     return render(request, 'woosukplus/post_delete.html', {'post': post})
 
-def noticeboard(request,):
+def noticeboard(request):
     notices = Notice.objects.all()
     paginator = Paginator(notices, 10)  # 페이지당 10개의 게시물 표시
     page = request.GET.get('page')

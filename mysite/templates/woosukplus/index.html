@@ -65,12 +65,15 @@
             </div>
         </div>
             <div class="screen_left_bottom">
-        <div class="noticeboard-link">
+        <table class="noticeboard-link">
+            {%for i in notices %}
+            <tr>
+                <td class="notice_left"><a href="{% url 'notice_detail' notice_id=i.id %}">{{i.title}}</a></td>
+                <td class="notice_right">{{i.created_at}}</td>
 
-            공지사항
-
-
-        </div>
+            </tr>
+            {%endfor%}
+        </table>
     </div>
 </div>
                     <div id="screen_right">
@@ -83,7 +86,7 @@
                                 <table class="index_table">
                                     {%for i in value_re %}
                                     <tr>
-                                        <td>{{i.1}}</td>
+                                        <td>{{i.1}}</td>&nbsp&nbsp
                                         <td><a href="{% url 'recruitment_detail' boardid=i.0 %}">{{i.2}}</a></td>
                                         <td>{{i.4}}</td>
                                     </tr>

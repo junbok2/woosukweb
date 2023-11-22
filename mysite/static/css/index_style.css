@@ -133,6 +133,20 @@ input[type="radio"] {
     width: 30px;
     height: 30px;
 }
+.noticeboard-link {
+    width: 100%;
+}
+.noticeboard-link a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.noticeboard-link a:hover {
+  text-decoration: underline;
+}
+.noticeboard-link td {
+    margin: 10px 10px;
+}
 .index_table a {
   text-decoration: none;
   cursor: pointer;
@@ -143,4 +157,10 @@ input[type="radio"] {
 }
 .index_table td {
     margin: 10px 10px;
+}
+.notice_left {
+    float: left;
+}
+.notice_right {
+    float: right;
 }
