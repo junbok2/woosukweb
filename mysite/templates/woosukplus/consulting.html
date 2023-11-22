@@ -43,9 +43,10 @@
 <main>
     <hr>
     <div id="screen_full">
+        <h2>상담신청</h2>
             <div id="screen_right">
                 <div class="container">
-                    <h2>상담신청</h2>
+                    <h2></h2>
                     <div id="name">
                         <label for="name">신청자</label>
                         <input type="text" name="name" id="name-input">
@@ -104,7 +105,7 @@
 </div>
 
                     <div id="counselor">
-                        <label for="counselor">상담선생님</label>
+                        <label for="counselor">상담자</label>
                         <input type="text" name="counselor" id="counselor-input">
                         </div>
                     </div>
@@ -138,8 +139,8 @@
 
 
                     <div class="row">
-                        <button type="submit">가입하기</button>
-                        <button type="submit">목록</button>
+                        <a href="{% url 'index' %}"><button type="submit">신청하기</button></a>
+
                     </div>
                 </div>
             </div>
