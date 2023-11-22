@@ -1,0 +1,142 @@
+.container {
+    width: 50%;
+    height: 100%;
+}
+.container input[type="text"] {
+    width: 200px;
+    height: 30px;
+    padding: 5px;
+}
+
+
+#screen_right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #999;
+    background-color:#EBFFFF;
+}
+
+.container div {
+    margin-bottom: 30px;
+
+}
+h2{
+    font-size: 40px;
+}
+
+.container h2 {
+    font-size: 40px;
+    text-align: center;
+
+}
+
+#field {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#field label {
+    margin-right: 20px;
+    font-weight: 600;
+}
+.college_way {
+    display: flex;
+    align-items: center;
+
+}
+.college_way > div {
+    margin-right: 130px;
+    margin-left: 10px;
+}
+#college label {
+    font-weight: 600;
+}
+#way label {
+    font-weight: 600;
+}
+
+#name {
+    margin-right: 280px;
+
+}
+#name-input {
+    text-align: left;
+}
+#name label {
+
+    font-weight: 600;
+}
+
+#mail {
+    margin-right: 210px;
+}
+#mail-input {
+    text-align: left;
+}
+#mail label {
+
+    font-weight: 600;
+}
+
+#day {
+    margin-right: 50px;
+    margin-left: 5px;
+}
+#day label {
+    font-weight: 600;
+}
+#counselor-input {
+    text-align: left;
+}
+#counselor label {
+    font-weight: 600;
+}
+.day_counselor {
+    display: flex;
+    align-items: center;
+}
+#time {
+    margin-right: 430px;
+}
+#time label {
+    font-weight: 600;
+}
+
+#place{
+    margin-right: 270px;
+}
+#place-input {
+    text-align: left;
+}
+#place label {
+    font-weight: 600;
+}
+
+#note{
+    width:80%;
+    margin-right: 450px;
+}
+#note label {
+    font-weight: 600;
+}
+
+#note-input {
+    width: 100%;
+    height: 150px;
+    text-align: left;
+    vertical-align: top;
+}
+button[type="submit"] {
+  background: #1A539F;
+    color: white;
+    width: 100px;
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #006AFF;
+    font-size: 16px;
+    margin-left: 30px;
+
+}

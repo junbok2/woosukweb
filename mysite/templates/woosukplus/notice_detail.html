@@ -1,16 +1,19 @@
-<!--채용정보-->
+<!-- post_detail.html -->
+
 <!DOCTYPE html>
 {% load static %}
+
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>우석대학교 일자리 플러스센터</title>
-        <link rel="stylesheet" href="{% static 'css/basic_style.css' %}">
-        <link rel="stylesheet" href="{% static 'css/recruitment_style.css' %}">
-        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    </head>
-    <body id="container">
-        <header>
+<head>
+    <meta charset="UTF-8">
+    <title>우석대학교 일자리 플러스센터</title>
+    <link rel="stylesheet" href="{% static 'css/basic_style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/BOARD_style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/write_style.css' %}">
+
+</head>
+<body id="container">
+<header>
             <div>
                  <div class="links">
                 {% if user.is_authenticated %}
@@ -42,52 +45,49 @@
                 <ul><a href="{% url 'consulting' %}">상담신청</a></ul>
              </nav>
         </header>
-        <main>
-            <hr>
-            <h1>채용정보</h1>
-            <div id="table_teb">
-            <table>
-                <a name="anchor"></a>
-                <th>기업명</th>
-                <th>구인제목</th>
-			    <th>업무</th>
-                <th>모집요강</th>
-			    <th>마감일</th>
-                {%for i in page_obj %}
-                <tr>
-                    <td>{{i.1}}</td>
-                    <td><a href="{% url 'recruitment_detail' boardid=i.0 %}" class="table_links">{{i.2}}</a></td>
-                    {% if i.3 == None %}
-				    <td>-</td>
-                    {% else %}
-                    <td>{{i.3}}</td>
-                    {%endif%}
-                    <td>{{i.4}}</td>
-                    <td>{{i.5}}</td>
-			    </tr>
-                {%endfor%}
+<main>
+    <hr>
+    <h1>공지사항</h1>
+    <!-- 현재 글 -->
+    <div class="page_view">
+        <div class="titlevox">
+            <div class="subject">
+                <span>{{ notice.title }}</span>>
+            </div>
+         </div>
 
-		    </table>
-                <div id="authorship">&#10094;출처:서울열린데이터광장&#10095;</div>
-            </div>
-            <div id="pagebutton">
-                {% if page_obj.has_previous %}
-                <ul><a href="?page={{page_obj.previous_page_number}}#anchor">&#10094;이전</a></ul>
+     <div>
+        <p>{{ notice.content }}</p>
+
+     </div>
+
+        {% if user.is_authenticated and user == notice.author %}
+            <form method="post" action="{% url 'notice_delete' pk=notice.pk %}">
+                {% csrf_token %}
+                <button type="submit">게시물 삭제</button>
+            </form>
+        {% endif %}
+     </div>
+
+
+    <div  class="bottom_list">
+        <ul>
+            <li>
+                 {% if previous_notice %}
+                    <a href="{% url 'notice_detail' previous_notice.id %}"><strong>▲ 윗글</strong>{{ previous_notice.title }}</a>
                 {% endif %}
-                {% for page in custom_range %}
-                {% if page == page_obj.number %}
-                <ul><a id="pagebutton_color" href="?page={{page}}#anchor">{{page}}</a> </ul>
-                {% else %}
-                <ul><a href="?page={{page}}#anchor">{{page}}</a> </ul>
+            </li>
+            <li>
+                {% if next_notice %}
+                    <a href="{% url 'notice_detail' next_notice.id %}"><strong>▼ 아랫글</strong>{{ next_notice.title }}</a>
                 {% endif %}
-                {% endfor %}
-                {% if page_obj.has_next %}
-                <ul ><a href="?page={{page_obj.next_page_number}}#anchor">다음&#10095;</a></ul>
-                {% endif %}
-            </div>
-            <hr>
-        </main>
-        <footer>
+            </li>
+        </ul>
+    </div>
+    </div>
+<hr>
+</main>
+<footer>
             <div>
                 <p>우석대학교 일자리 플러스센터</p>
                 <p>캡스톤 디자인 나으리 조</p>
@@ -101,8 +101,10 @@
                 </a>
             </div>
         </footer>
-        <aside>
-            <a class="top" href="#"><img src="{% static 'img/top.png' %}"></a>
-        </aside>
-    </body>
+<aside>
+    <a class="top" href="#"><img src="{% static 'img/top.png' %}"></a>
+</aside>
+</body>
 </html>
+
+

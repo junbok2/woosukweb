@@ -1,19 +1,15 @@
-<!-- post_detail.html -->
-
+<!-- 글작성 -->
 <!DOCTYPE html>
 {% load static %}
-
 <html>
 <head>
     <meta charset="UTF-8">
     <title>우석대학교 일자리 플러스센터</title>
     <link rel="stylesheet" href="{% static 'css/basic_style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/BOARD_style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/write_style.css' %}">
 
 </head>
 <body id="container">
-<header>
+    <header>
             <div>
                  <div class="links">
                 {% if user.is_authenticated %}
@@ -45,47 +41,36 @@
                 <ul><a href="{% url 'consulting' %}">상담신청</a></ul>
              </nav>
         </header>
-<main>
+    <main>
     <hr>
-    <h1>게시판</h1>
-    <!-- 현재 글 -->
-    <div class="page_view">
-        <div class="titlevox">
-            <div class="subject">
-                <span>{{ post.title }}</span>>
+    <h1>공지사항</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class = "board_write">
+        <div class="title">
+        <p>
+            <label for="id_title"></label>
+            <span>제목</span>
+            <input type="text"  name="title" required id = "id_title">
+
+        </p>
+
+        </div>
+        <div class="cont">
+        <p>
+            <label for="id_content"></label><br>
+            <textarea name = "content" cols="30" rows="20" required id = "id_content">
+
+            </textarea>
+        </p>
             </div>
-         </div>
-
-     <div>
-        <p>{{ post.content }}</p>
-
-     </div>
-
-        {% if user.is_authenticated and user == post.author %}
-            <form method="post" action="{% url 'post_delete' pk=post.pk %}">
-                {% csrf_token %}
-                <button type="submit">게시물 삭제</button>
-            </form>
-        {% endif %}
-     </div>
-
-
-    <div  class="bottom_list">
-        <ul>
-            <li>
-                 {% if previous_post %}
-                    <a href="{% url 'post_detail' previous_post.id %}"><strong>▲ 윗글</strong>{{ previous_post.title }}</a>
-                {% endif %}
-            </li>
-            <li>
-                {% if next_post %}
-                    <a href="{% url 'post_detail' next_post.id %}"><strong>▼ 아랫글</strong>{{ next_post.title }}</a>
-                {% endif %}
-            </li>
-        </ul>
-    </div>
-    </div>
-<hr>
+        </div>
+        <div class="bt_wrap">
+        <span class = "bt_list"><a href="{% url 'noticeboard' %}"><button>목록</button></a></span>
+        <span class="bt_submit"><button type="submit">글 작성</button></span>
+        </div>
+    </form>
+        <hr>
 </main>
 <footer>
             <div>

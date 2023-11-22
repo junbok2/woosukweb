@@ -3,8 +3,8 @@ from .api import (recruitment_api, pagebutton, recruitment_detail_api, job_api, 
                   youthpolicy_detail_api, youthpolicy_search_api)
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage, Page
 from django.http import JsonResponse
-from .forms import UserRegistrationForm, UserLoginForm, PostForm
-from .models import User, Post
+from .forms import UserRegistrationForm, UserLoginForm, PostForm, NoticeForm, UserProfileUpdateForm
+from .models import User, Post, Notice
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -14,8 +14,6 @@ def index(request):
     value_yo = youthpolicy_search_api(1, '', 5)
     return render(request, "woosukplus/index.html", {'value_re': value_re, 'value_yo': value_yo['youthPolicy']})
 
-def noticeboard(request):
-    return render(request, "woosukplus/noticeboard.html")
 
 def recruitment(request):
     value = recruitment_api(600)
@@ -170,3 +168,69 @@ def post_delete(request, pk):
         return redirect('post_list')
 
     return render(request, 'woosukplus/post_delete.html', {'post': post})
+
+def noticeboard(request,):
+    notices = Notice.objects.all()
+    paginator = Paginator(notices, 10)  # 페이지당 10개의 게시물 표시
+    page = request.GET.get('page')
+    notices = paginator.get_page(page)
+    return render(request, 'woosukplus/noticeboard.html', {'notices': notices})
+
+
+
+@login_required(login_url='login')
+def create_notice(request):
+    if request.method == 'POST':
+        form = NoticeForm(request.POST)
+        if form.is_valid():
+            new_notice = form.save(commit=False)
+            new_notice.author = request.user
+            new_notice.save()
+            return redirect('noticeboard')
+    else:
+        form = NoticeForm()
+    return render(request, 'woosukplus/create_notice.html', {'form': form})
+
+
+def notice_detail(request, notice_id):
+    notice = get_object_or_404(Notice, id=notice_id)
+
+    # 현재 게시물보다 이전 글과 다음 글을 가져옵니다.
+    previous_notice = Notice.objects.filter(id__lt=notice_id).order_by('-id').first()
+    next_notice = Notice.objects.filter(id__gt=notice_id).order_by('id').first()
+
+    context = {
+        'notice': notice,
+        'previous_notice': previous_notice,
+        'next_notice': next_notice,
+    }
+
+    return render(request, 'woosukplus/notice_detail.html', context)
+
+
+def notice_delete(request,pk):
+    notice = get_object_or_404(Notice, pk=pk)
+
+    if request.method == 'POST':
+        notice.delete()
+        return redirect('noticeboard')
+
+    return render(request, 'woosukplus/notice_delete.html', {'notice': notice})
+def consulting(request):
+    return render(request, "woosukplus/consulting.html")
+
+def user_profile(request):
+    return render(request, "woosukplus/user_profile.html")
+
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = UserProfileUpdateForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('user_profile')  # 프로필 페이지로 리다이렉트
+    else:
+        form = UserProfileUpdateForm(instance=request.user)
+
+    return render(request, 'woosukplus/edit_profile.html', {'form': form})
