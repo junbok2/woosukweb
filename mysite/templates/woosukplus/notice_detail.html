@@ -15,10 +15,11 @@
 <body id="container">
 <header>
             <div>
-                <div class="links">
+                 <div class="links">
                 {% if user.is_authenticated %}
         <a>안녕하세요, {{ user.name }}님! </a>
         <a href="{% url 'logout' %}">로그아웃</a>
+        <a href="{% url 'user_profile' %}">회원정보</a>
     {% else %}
         <a href="{% url 'login' %}">로그인</a>
         <a href="{% url 'join' %}">회원가입</a>

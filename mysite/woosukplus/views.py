@@ -3,7 +3,7 @@ from .api import (recruitment_api, pagebutton, recruitment_detail_api, job_api, 
                   youthpolicy_detail_api, youthpolicy_search_api)
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage, Page
 from django.http import JsonResponse
-from .forms import UserRegistrationForm, UserLoginForm, PostForm, NoticeForm
+from .forms import UserRegistrationForm, UserLoginForm, PostForm, NoticeForm, UserProfileUpdateForm
 from .models import User, Post, Notice
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -218,3 +218,19 @@ def notice_delete(request,pk):
     return render(request, 'woosukplus/notice_delete.html', {'notice': notice})
 def consulting(request):
     return render(request, "woosukplus/consulting.html")
+
+def user_profile(request):
+    return render(request, "woosukplus/user_profile.html")
+
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = UserProfileUpdateForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('user_profile')  # 프로필 페이지로 리다이렉트
+    else:
+        form = UserProfileUpdateForm(instance=request.user)
+
+    return render(request, 'woosukplus/edit_profile.html', {'form': form})
