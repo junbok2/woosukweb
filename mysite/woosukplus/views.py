@@ -216,3 +216,5 @@ def notice_delete(request,pk):
         return redirect('noticeboard')
 
     return render(request, 'woosukplus/notice_delete.html', {'notice': notice})
+def consulting(request):
+    return render(request, "woosukplus/consulting.html")
