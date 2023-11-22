@@ -89,7 +89,7 @@
                             <tr>
                                 <td>{{ notice.id }}</td>
                                 <td><a href="{% url 'notice_detail' notice.id %}">{{ notice.title }}</a></td>
-                                <td>{{ notice.author.username }}</td>
+                                <td>{{ notice.author.name }}</td>
                                 <td>{{ notice.created_at }}</td>
                                 <td>{{ notice.views }}</td>
                             </tr>

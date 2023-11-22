@@ -89,7 +89,7 @@
                             <tr>
                                 <td>{{ post.id }}</td>
                                 <td><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></td>
-                                <td>{{ post.author.username }}</td>
+                                <td>{{ post.author.name }}</td>
                                 <td>{{ post.created_at }}</td>
                                 <td>{{ post.views }}</td>
                             </tr>
