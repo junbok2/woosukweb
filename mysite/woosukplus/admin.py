@@ -1,6 +1,12 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .models import User, Post
+from .models import User, Post, Notice
+
+class NoticeAdmin(admin.ModelAdmin): # 공지사항 admin관리
+    list_display = ('title', 'content', 'author', 'created_at')
+    search_fields = ('title', 'content')
+    readonly_fields = ('created_at',)
+
 
 class PostAdmin(admin.ModelAdmin): # 게시판 admin관리
     list_display = ('title', 'content', 'author', 'created_at')
@@ -18,3 +24,4 @@ class AccountAdmin(BaseUserAdmin):
 
 admin.site.register(User, AccountAdmin)
 admin.site.register(Post, PostAdmin)
+admin.site.register(Notice, NoticeAdmin)
