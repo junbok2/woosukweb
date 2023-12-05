@@ -1,52 +1,13 @@
 <!-- post_detail.html -->
-
-<!DOCTYPE html>
+{% extends "template.html" %}
 {% load static %}
-
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>우석대학교 일자리 플러스센터</title>
+{% block css %}
     <link rel="stylesheet" href="{% static 'css/basic_style.css' %}">
     <link rel="stylesheet" href="{% static 'css/BOARD_style.css' %}">
     <link rel="stylesheet" href="{% static 'css/write_style.css' %}">
+{% endblock %}
+{% block content %}
 
-</head>
-<body id="container">
-<header>
-            <div>
-                 <div class="links">
-                {% if user.is_authenticated %}
-        <a>안녕하세요, {{ user.name }}님! </a>
-        <a href="{% url 'logout' %}">로그아웃</a>
-        <a href="{% url 'user_profile' %}">회원정보</a>
-    {% else %}
-        <a href="{% url 'login' %}">로그인</a>
-        <a href="{% url 'join' %}">회원가입</a>
-    {% endif %}
-                </div>
-            </div>
-            <a href="{% url 'index' %}">
-                <div id="logo">
-                    <img src="{% static 'img/logo1.jpg' %}" width="60px">
-                        <div id="logo_text">
-                        <img src="{% static 'img/logo2.jpg' %}" width="150px">
-                        일자리 플러스센터
-                    </div>
-                </div>
-            </a>
-             <nav>
-                <ul><a href="{% url 'noticeboard' %}">공지사항</a></ul>
-                <ul><a href="{% url 'recruitment' %}">채용정보</a></ul>
-                <ul><a href="{% url 'job' %}">직업정보</a></ul>
-                <ul><a href="{% url 'youthpolicy' %}">청년제도</a></ul>
-                <ul><a href="{% url 'education' %}">교육프로그램</a></ul>
-                <ul><a href="{% url 'post_list' %}">게시판</a></ul>
-                <ul><a href="{% url 'consulting' %}">상담신청</a></ul>
-             </nav>
-        </header>
-<main>
-    <hr>
     <h1>공지사항</h1>
     <!-- 현재 글 -->
     <div class="page_view">
@@ -85,26 +46,6 @@
         </ul>
     </div>
     </div>
-<hr>
-</main>
-<footer>
-            <div>
-                <p>우석대학교 일자리 플러스센터</p>
-                <p>캡스톤 디자인 나으리 조</p>
-            </div>
-            <div id="footer_links" >
-                <a href="https://data.seoul.go.kr/">
-                    <img src="https://data.seoul.go.kr/resources/img/common/logo.png" alt="서울 열린데이터광장">
-                    <a href="https://www.career.go.kr/cnet/front/main/main.do"><img src="https://www.career.go.kr/webres/images/common/logo.png" alt="커리어넷"></a>
-                    <a href="https://www.youthcenter.go.kr/main.do"><img src="https://www.youthcenter.go.kr/images/common/logo.png" alt="온라인 청년센터"></a>
-
-                </a>
-            </div>
-        </footer>
-<aside>
-    <a class="top" href="#"><img src="{% static 'img/top.png' %}"></a>
-</aside>
-</body>
-</html>
+{% endblock %}
 
 
